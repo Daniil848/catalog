@@ -16,9 +16,9 @@ const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder;
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  // },
 });
 
 // export const {} = mainSlice.actions;
