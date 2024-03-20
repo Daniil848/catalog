@@ -1,0 +1,37 @@
+.product {
+  @apply h-[400px] border border-slate-300 rounded p-4;
+
+  .productImageContainer {
+    @apply relative h-[55%] p-2 pb-4 border-b border-slate-300;
+
+    .productImage {
+      @apply max-h-40 mx-auto bg-contain hover:scale-105 duration-300;
+    }
+  }
+  .productInfo {
+    @apply h-[45%] flex flex-col pt-2;
+
+    .productTitle {
+      @apply flex-grow;
+    }
+    .wrapper {
+      @apply flex items-center justify-between;
+
+      .productPrice {
+        @apply font-medium;
+
+        span {
+          @apply bg-violet-800 text-white font-medium rounded px-2 py-1;
+        }
+      }
+
+      .productQuantity {
+        @apply font-medium;
+
+        span {
+          @apply bg-slate-400 text-white font-medium rounded px-2 py-1;
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getCategories, getProducts } from '../../app/mainSlice';
 import styles from './HomePage.module.scss';
+import ProductCard from '../../components/productCard/ProductCard';
 
 const HomePage = () => {
   const state = useAppSelector((state) => state.mainSlice);
@@ -22,26 +23,7 @@ const HomePage = () => {
               {state.products
                 .filter((el) => el.categoryId == category.id)
                 .map((product) => (
-                  <div key={product.id} className={styles.product}>
-                    <div className={styles.productImageContainer}>
-                      <img
-                        src={product.image}
-                        alt="product image"
-                        className={styles.productImage}
-                      />
-                    </div>
-                    <div className={styles.productInfo}>
-                      <p className={styles.productTitle}>{product.title}</p>
-                      <div className={styles.wrapper}>
-                        <p className={styles.productPrice}>
-                          Price: <span>${product.price}</span>
-                        </p>
-                        <p className={styles.productQuantity}>
-                          Quantity: <span>{product.quantity}</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <ProductCard product={product} key={product.id} />
                 ))}
             </div>
           </div>
