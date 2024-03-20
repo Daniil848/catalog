@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header {
+  @apply h-20 p-4 border-b border-slate-300 flex items-center;
+
+  .headerTitle {
+    @apply font-bold text-3xl text-violet-800;
+  }
+}
