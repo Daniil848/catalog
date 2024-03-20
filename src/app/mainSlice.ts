@@ -12,6 +12,7 @@ export interface Product {
   price: number;
   categoryId: number;
   image: string;
+  quantity: number;
 }
 export interface State {
   category: Category | null;
@@ -31,11 +32,11 @@ const initialState: State = {
   error: false,
 };
 
-export const getCtegories = createAsyncThunk<
+export const getCategories = createAsyncThunk<
   Category[],
   undefined,
   { rejectValue: string }
->('store/getCtegories', async (_, { rejectWithValue }) => {
+>('store/getCategories', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get('http://localhost:3001/categories');
 
@@ -65,10 +66,10 @@ const mainSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getCtegories.pending, (state) => {
+      .addCase(getCategories.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getCtegories.fulfilled, (state, action) => {
+      .addCase(getCategories.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = action.payload;
       })
