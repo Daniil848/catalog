@@ -1,33 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Category, getCategories, getProducts } from '../../app/mainSlice';
+import React from 'react';
+import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
-import ProductCard from '../../components/productCard/ProductCard';
-import styles from './HomePage.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
-interface Accordion {
-  [key: string]: boolean;
-}
+import ProductCard from '../../components/productCard/ProductCard';
+import styles from './HomePage.module.scss';
 
 const HomePage = () => {
-  const state = useAppSelector((state) => state.mainSlice);
-  const dispatch = useAppDispatch();
-
-  const [accordion, setAccordion] = useState<Accordion>({});
-
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getProducts());
-  }, []);
-
-  const handleAccordion = (category: Category) => {
-    setAccordion((prevState: any) => ({
-      ...prevState,
-      [category.id]: !prevState[category.id] || false,
-    }));
-  };
+  const { state, accordion, handleAccordion } = useHomePage();
 
   return (
     <>
