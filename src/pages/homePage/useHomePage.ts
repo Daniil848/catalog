@@ -24,9 +24,25 @@ export const useHomePage = () => {
     }));
   };
 
+  const totalPriceInCategory = (categoryID: number) => {
+    const productsInCategory = state.products.filter(
+      (product) => product.categoryId == categoryID,
+    );
+    const totalPriceInCategory = productsInCategory
+      .map((el) => el.price)
+      .reduce((acc, number) => acc + number, 0);
+
+    const totalQuantityInCategory = productsInCategory
+      .map((el) => el.quantity)
+      .reduce((acc, number) => acc + number, 0);
+
+    return totalPriceInCategory * totalQuantityInCategory;
+  };
+
   return {
     state,
     accordion,
     handleAccordion,
+    totalPriceInCategory,
   };
 };

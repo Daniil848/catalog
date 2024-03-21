@@ -7,7 +7,8 @@ import ProductCard from '../../components/productCard/ProductCard';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
-  const { state, accordion, handleAccordion } = useHomePage();
+  const { state, accordion, handleAccordion, totalPriceInCategory } =
+    useHomePage();
 
   return (
     <>
@@ -52,7 +53,9 @@ const HomePage = () => {
                   </motion.div>
                   <motion.div className={styles.categoryTotal}>
                     <motion.p>Total:</motion.p>
-                    <motion.p>$</motion.p>
+                    <motion.p>
+                      ${totalPriceInCategory(category.id).toFixed(2)}
+                    </motion.p>
                   </motion.div>
                 </motion.div>
               )}
