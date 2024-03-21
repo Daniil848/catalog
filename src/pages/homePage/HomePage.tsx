@@ -4,6 +4,8 @@ import { Category, getCategories, getProducts } from '../../app/mainSlice';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../../components/productCard/ProductCard';
 import styles from './HomePage.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Accordion {
   [key: string]: boolean;
@@ -59,6 +61,14 @@ const HomePage = () => {
                     .map((product) => (
                       <ProductCard product={product} key={product.id} />
                     ))}
+                  <motion.div className={styles.addProduct}>
+                    <motion.button className={styles.addProductButton}>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className={styles.addProductIcon}
+                      />
+                    </motion.button>
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
