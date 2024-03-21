@@ -1,11 +1,19 @@
 .container {
   @apply w-1/2 mx-auto;
 
-  .categoryName {
-    @apply my-8 text-2xl font-medium text-teal-700;
+  .category {
+    @apply my-4 p-4 border border-teal-600 rounded;
+
+    .categoryName {
+      @apply text-2xl font-medium text-teal-700 cursor-pointer;
+    }
   }
 
   .products {
-    @apply grid grid-cols-3 gap-4;
+    @apply grid grid-cols-3 gap-4 mb-8;
+  }
+
+  .hiddenProducts {
+    @apply hidden;
   }
 }
