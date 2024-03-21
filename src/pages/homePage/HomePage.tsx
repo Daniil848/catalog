@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getCategories, getProducts } from '../../app/mainSlice';
-import styles from './HomePage.module.scss';
 import ProductCard from '../../components/productCard/ProductCard';
+import styles from './HomePage.module.scss';
 
 const HomePage = () => {
   const state = useAppSelector((state) => state.mainSlice);
