@@ -25,7 +25,6 @@ const HomePage = () => {
             <AnimatePresence>
               {accordion[category.id] && (
                 <motion.div
-                  className={styles.products}
                   initial={{ opacity: 0, height: 0 }}
                   animate={{
                     opacity: 1,
@@ -36,18 +35,24 @@ const HomePage = () => {
                   }}
                   exit={{ opacity: 0, height: 0 }}
                 >
-                  {state.products
-                    .filter((el) => el.categoryId == category.id)
-                    .map((product) => (
-                      <ProductCard product={product} key={product.id} />
-                    ))}
-                  <motion.div className={styles.addProduct}>
-                    <motion.button className={styles.addProductButton}>
-                      <FontAwesomeIcon
-                        icon={faPlus}
-                        className={styles.addProductIcon}
-                      />
-                    </motion.button>
+                  <motion.div className={styles.products}>
+                    {state.products
+                      .filter((el) => el.categoryId == category.id)
+                      .map((product) => (
+                        <ProductCard product={product} key={product.id} />
+                      ))}
+                    <motion.div className={styles.addProduct}>
+                      <motion.button className={styles.addProductButton}>
+                        <FontAwesomeIcon
+                          icon={faPlus}
+                          className={styles.addProductIcon}
+                        />
+                      </motion.button>
+                    </motion.div>
+                  </motion.div>
+                  <motion.div className={styles.categoryTotal}>
+                    <motion.p>Total:</motion.p>
+                    <motion.p>$</motion.p>
                   </motion.div>
                 </motion.div>
               )}

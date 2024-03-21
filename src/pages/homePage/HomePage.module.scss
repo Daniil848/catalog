@@ -10,7 +10,7 @@
   }
 
   .products {
-    @apply grid grid-cols-3 gap-4 mb-8;
+    @apply grid grid-cols-3 gap-4;
   }
 
   .addProduct {
@@ -23,5 +23,9 @@
         @apply text-3xl font-bold;
       }
     }
+  }
+
+  .categoryTotal {
+    @apply my-4 p-4 border border-slate-300 rounded flex items-center justify-between text-slate-500 text-2xl font-medium cursor-pointer;
   }
 }
