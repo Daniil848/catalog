@@ -3,6 +3,7 @@ import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
+import AddProductForm from '../../components/addProductForm/AddProductForm';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
@@ -42,6 +43,7 @@ const HomePage = () => {
                         <ProductCard product={product} key={product.id} />
                       ))}
                     <AddProduct />
+                    <AddProductForm />
                   </motion.div>
                   <motion.div className={styles.categoryTotal}>
                     <motion.p>Total:</motion.p>
