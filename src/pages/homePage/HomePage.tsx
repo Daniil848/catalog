@@ -1,9 +1,8 @@
 import React from 'react';
 import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../../components/productCard/ProductCard';
+import AddProduct from '../../components/addProduct/AddProduct';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
@@ -42,14 +41,7 @@ const HomePage = () => {
                       .map((product) => (
                         <ProductCard product={product} key={product.id} />
                       ))}
-                    <motion.div className={styles.addProduct}>
-                      <motion.button className={styles.addProductButton}>
-                        <FontAwesomeIcon
-                          icon={faPlus}
-                          className={styles.addProductIcon}
-                        />
-                      </motion.button>
-                    </motion.div>
+                    <AddProduct />
                   </motion.div>
                   <motion.div className={styles.categoryTotal}>
                     <motion.p>Total:</motion.p>

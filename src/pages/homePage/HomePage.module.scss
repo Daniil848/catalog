@@ -13,18 +13,6 @@
     @apply grid grid-cols-3 gap-4;
   }
 
-  .addProduct {
-    @apply flex items-center justify-center h-[400px] border border-slate-300 rounded p-4;
-
-    .addProductButton {
-      @apply h-[80px] w-[80px] rounded-full bg-teal-700 hover:bg-slate-300 text-white hover:text-teal-700 transition-colors;
-
-      .addProductIcon {
-        @apply text-3xl font-bold;
-      }
-    }
-  }
-
   .categoryTotal {
     @apply my-4 p-4 border border-slate-300 rounded flex items-center justify-between text-slate-500 text-2xl font-medium cursor-pointer;
   }
