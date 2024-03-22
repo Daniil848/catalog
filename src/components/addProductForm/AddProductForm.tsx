@@ -14,7 +14,10 @@ const AddProductForm = () => {
         ></FontAwesomeIcon>
         <motion.div className={styles.productImageContainer}></motion.div>
         <motion.div className={styles.productInfo}>
-          <motion.textarea className={styles.productArea} />
+          <motion.textarea
+            placeholder="Product name"
+            className={styles.productArea}
+          />
           <motion.div
             aria-placeholder="Product name"
             className={styles.wrapper}
