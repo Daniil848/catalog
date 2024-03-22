@@ -1,5 +1,5 @@
 .addProductForm {
-  @apply relative p-4 w-full h-full border border-slate-300 rounded;
+  @apply relative p-4 h-[400px] border border-slate-300 rounded;
 
   .productUploadImage {
     @apply absolute z-10 top-[90px] left-[142px] text-3xl text-teal-700;

@@ -10,6 +10,8 @@ const HomePage = () => {
   const { state, accordion, handleAccordion, totalPriceInCategory } =
     useHomePage();
 
+  console.log(state.productsToAdd);
+
   return (
     <>
       <div className={styles.container}>
@@ -42,15 +44,17 @@ const HomePage = () => {
                       .map((product) => (
                         <ProductCard product={product} key={product.id} />
                       ))}
-                    <AddProduct />
-                    <AddProductForm />
+                    <AddProduct categoryId={category.id} />
+                    {/* {Array.from(({state.productsToAdd}), (product) => (
+                      <AddProductForm key={product} categoryId={category.id} />
+                    ))} */}
                   </motion.div>
-                  <motion.div className={styles.categoryTotal}>
+                  {/* <motion.div className={styles.categoryTotal}>
                     <motion.p>Total:</motion.p>
                     <motion.p>
                       ${totalPriceInCategory(category.id).toFixed(2)}
                     </motion.p>
-                  </motion.div>
+                  </motion.div> */}
                 </motion.div>
               )}
             </AnimatePresence>

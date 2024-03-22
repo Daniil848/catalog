@@ -7,7 +7,6 @@ export interface Category {
   name: string;
 }
 export interface Product {
-  product: any;
   id: number;
   title: string;
   price: number;
@@ -20,6 +19,7 @@ export interface State {
   categories: Category[];
   product: Product | null;
   products: Product[];
+  productsToAdd: Product[];
   loading: boolean;
   error: boolean;
 }
@@ -29,6 +29,7 @@ const initialState: State = {
   categories: [],
   product: null,
   products: [],
+  productsToAdd: [],
   loading: false,
   error: false,
 };
@@ -64,7 +65,11 @@ export const getProducts = createAsyncThunk<
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setProductsToAdd(state, action) {
+      state.productsToAdd.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCategories.pending, (state) => {
@@ -84,6 +89,6 @@ const mainSlice = createSlice({
   },
 });
 
-// export const {} = mainSlice.actions;
+export const { setProductsToAdd } = mainSlice.actions;
 
 export default mainSlice.reducer;
