@@ -1,11 +1,42 @@
 .addProduct {
-  @apply flex items-center justify-center h-[400px] border border-slate-300 rounded p-4;
+  @apply flex items-center justify-center h-[400px] border border-slate-300 rounded;
 
   .addProductButton {
-    @apply h-[80px] w-[80px] rounded-full bg-teal-700 hover:bg-slate-300 text-white hover:text-teal-700 transition-colors;
+    @apply rounded-full bg-teal-700 hover:bg-slate-300 text-white hover:text-teal-700 transition-colors;
 
     .addProductIcon {
       @apply text-3xl font-bold;
+    }
+  }
+
+  .addProductForm {
+    @apply relative p-4 w-full h-full;
+
+    .productUploadImage {
+      @apply absolute z-10 top-[90px] left-[142px] text-3xl text-teal-700;
+    }
+
+    .productImageContainer {
+      @apply relative h-[55%] p-2 pb-4 bg-slate-200 animate-pulse rounded;
+
+      .productImage {
+        @apply max-h-40 mx-auto bg-contain hover:scale-105 duration-300;
+      }
+    }
+
+    .productInfo {
+      @apply h-[45%] flex flex-col gap-2 pt-2;
+
+      .productArea {
+        @apply flex-grow w-full h-full inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700;
+      }
+      .wrapper {
+        @apply flex items-center justify-between gap-2;
+
+        .productInput {
+          @apply w-1/2 inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700;
+        }
+      }
     }
   }
 }
