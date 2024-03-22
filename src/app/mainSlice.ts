@@ -7,7 +7,7 @@ export interface Category {
   name: string;
 }
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   price: number;
   categoryId: number;
@@ -69,6 +69,9 @@ const mainSlice = createSlice({
     setProductsToAdd(state, action) {
       state.productsToAdd.push(action.payload);
     },
+    updateProductsToAdd(state, action) {
+      state.productsToAdd = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,6 +92,6 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setProductsToAdd } = mainSlice.actions;
+export const { setProductsToAdd, updateProductsToAdd } = mainSlice.actions;
 
 export default mainSlice.reducer;

@@ -1,10 +1,11 @@
 import React from 'react';
+import { useAppDispatch } from '../../app/hooks';
+import { setProductsToAdd } from '../../app/mainSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
+import { nanoid } from 'nanoid';
 import styles from './AddProduct.module.scss';
-import { useAppDispatch } from '../../app/hooks';
-import { setProductsToAdd } from '../../app/mainSlice';
 
 interface Props {
   categoryId: number;
@@ -14,7 +15,7 @@ const AddProduct = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const product = {
-    id: 0,
+    id: nanoid(),
     title: '',
     price: 0,
     categoryId: props.categoryId,

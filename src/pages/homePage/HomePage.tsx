@@ -45,9 +45,7 @@ const HomePage = () => {
                         <ProductCard product={product} key={product.id} />
                       ))}
                     <AddProduct categoryId={category.id} />
-                    {/* {Array.from(({state.productsToAdd}), (product) => (
-                      <AddProductForm key={product} categoryId={category.id} />
-                    ))} */}
+                    <AddProductForm categoryId={category.id} />
                   </motion.div>
                   {/* <motion.div className={styles.categoryTotal}>
                     <motion.p>Total:</motion.p>
