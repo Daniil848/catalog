@@ -1,12 +1,25 @@
 .addProductForm {
   @apply relative p-4 h-[400px] border border-slate-300 rounded;
 
-  .productUploadImage {
-    @apply absolute z-10 top-[90px] left-[142px] text-3xl text-teal-700;
+  .productUploadContainer {
+    @apply relative flex items-center justify-center h-[55%] p-2 pb-4 bg-slate-100 rounded;
+
+    .productUploadIcon {
+      @apply text-3xl text-teal-700;
+    }
+
+    input[type='file'] {
+      cursor: pointer;
+      position: absolute;
+      opacity: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .productImageContainer {
-    @apply relative h-[55%] p-2 pb-4 bg-slate-200 animate-pulse rounded;
+    @apply relative h-[55%] p-2 pb-4 border-b border-slate-300;
 
     .productImage {
       @apply max-h-40 mx-auto bg-contain hover:scale-105 duration-300;
