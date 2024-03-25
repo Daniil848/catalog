@@ -14,17 +14,17 @@ const HomePage = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <motion.div className={styles.container}>
         {state.categories.map((category) => (
-          <div key={category.id}>
-            <div className={styles.category}>
-              <p
+          <motion.div key={category.id}>
+            <motion.div className={styles.category}>
+              <motion.p
                 className={styles.categoryName}
                 onClick={() => handleAccordion(category)}
               >
                 {category.name}
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
             <AnimatePresence>
               {accordion[category.id] && (
                 <motion.div
@@ -56,9 +56,9 @@ const HomePage = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </>
   );
 };
