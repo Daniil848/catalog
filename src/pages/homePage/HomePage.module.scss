@@ -12,23 +12,4 @@
   .products {
     @apply grid grid-cols-3 gap-4;
   }
-
-  .addCategory {
-    @apply my-4 p-4 border border-dashed border-teal-600 rounded;
-
-    .addCategoryText {
-      @apply text-2xl font-medium text-teal-700 cursor-pointer;
-    }
-
-    .addCategoryForm {
-      @apply h-8 flex items-end;
-
-      .addCategoryFormInput {
-        @apply border-b border-x-0 border-t-0 border-teal-700 outline-none ring-0 py-0;
-      }
-      .addCategoryFormButton {
-        @apply p-2 py-1 border-b border-teal-700 text-teal-700 font-medium hover:bg-slate-200 transition-colors;
-      }
-    }
-  }
 }

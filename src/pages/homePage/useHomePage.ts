@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  Category,
-  addCategory,
-  getCategories,
-  getProducts,
-} from '../../app/mainSlice';
-import { nanoid } from 'nanoid';
+import { Category, getCategories, getProducts } from '../../app/mainSlice';
 
 interface Accordion {
   [key: string]: boolean;
@@ -17,24 +11,17 @@ export const useHomePage = () => {
   const dispatch = useAppDispatch();
 
   const [accordion, setAccordion] = useState<Accordion>({});
-  const [isAddCategory, setIsAddCategory] = useState<boolean>(false);
-  const [categoryName, setCategoryName] = useState<string>('');
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
-  }, [isAddCategory]);
+  }, [state.isAddCategory]);
 
   const handleAccordion = (category: Category) => {
-    setAccordion((prevState: any) => ({
+    setAccordion((prevState: Accordion) => ({
       ...prevState,
       [category.id]: !prevState[category.id] || false,
     }));
-  };
-
-  const handleChangeCtegory = () => {
-    dispatch(addCategory({ id: nanoid(), name: categoryName }));
-    setIsAddCategory(false);
   };
 
   // const totalPriceInCategory = (categoryID: number) => {
@@ -56,9 +43,5 @@ export const useHomePage = () => {
     state,
     accordion,
     handleAccordion,
-    isAddCategory,
-    setIsAddCategory,
-    setCategoryName,
-    handleChangeCtegory,
   };
 };

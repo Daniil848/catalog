@@ -20,6 +20,7 @@ export interface State {
   product: Product | null;
   products: Product[];
   productsToAdd: Product[];
+  isAddCategory: boolean;
   loading: boolean;
   error: boolean;
 }
@@ -30,6 +31,7 @@ const initialState: State = {
   product: null,
   products: [],
   productsToAdd: [],
+  isAddCategory: false,
   loading: false,
   error: false,
 };
@@ -89,6 +91,9 @@ const mainSlice = createSlice({
     updateProductsToAdd(state, action) {
       state.productsToAdd = action.payload;
     },
+    setIsAddCategory(state, action) {
+      state.isAddCategory = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,6 +120,7 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setProductsToAdd, updateProductsToAdd } = mainSlice.actions;
+export const { setProductsToAdd, updateProductsToAdd, setIsAddCategory } =
+  mainSlice.actions;
 
 export default mainSlice.reducer;

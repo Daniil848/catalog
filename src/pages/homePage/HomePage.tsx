@@ -5,23 +5,12 @@ import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddProductForm from '../../components/addProductForm/AddProductForm';
 import styles from './HomePage.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import AddCategory from '../../components/addCategory/AddCategory';
 
 const HomePage = () => {
-  const {
-    state,
-    accordion,
-    handleAccordion,
-    handleChangeCtegory,
-    isAddCategory,
-    setCategoryName,
-    setIsAddCategory,
-  } = useHomePage();
+  const { state, accordion, handleAccordion } = useHomePage();
 
   console.log(state.productsToAdd);
-  console.log(state.categories);
-
   return (
     <>
       <motion.div className={styles.container}>
@@ -73,38 +62,7 @@ const HomePage = () => {
             </AnimatePresence>
           </motion.div>
         ))}
-        <motion.div className={styles.addCategory}>
-          {!isAddCategory ? (
-            <motion.p
-              onClick={() => setIsAddCategory(true)}
-              className={styles.addCategoryText}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              Add category <FontAwesomeIcon icon={faPlus} />
-            </motion.p>
-          ) : (
-            <motion.div
-              className={styles.addCategoryForm}
-              initial={{ width: 0 }}
-              animate={{ width: 'auto' }}
-              exit={{ width: 0 }}
-            >
-              <motion.input
-                type="text"
-                onChange={(e) => setCategoryName(e.target.value)}
-                className={styles.addCategoryFormInput}
-              />
-              <motion.button
-                className={styles.addCategoryFormButton}
-                onClick={() => handleChangeCtegory()}
-              >
-                Ok
-              </motion.button>
-            </motion.div>
-          )}
-        </motion.div>
+        <AddCategory />
       </motion.div>
     </>
   );
