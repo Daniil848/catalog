@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid';
 import styles from './AddProduct.module.scss';
 
 interface Props {
-  categoryId: number;
+  categoryId: string;
 }
 
 const AddProduct = (props: Props) => {

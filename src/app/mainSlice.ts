@@ -3,14 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export interface Category {
-  id: number;
+  id: string;
   name: string;
 }
 export interface Product {
   id: string;
   title: string;
   price: number;
-  categoryId: number;
+  categoryId: string;
   image: string;
   quantity: number;
 }
@@ -62,6 +62,23 @@ export const getProducts = createAsyncThunk<
   }
 });
 
+export const addCategory = createAsyncThunk<
+  void,
+  Category,
+  { rejectValue: string }
+>('store/addCategory', async (category, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(
+      'http://localhost:3001/categories',
+      category,
+    );
+
+    return data;
+  } catch (error) {
+    return rejectWithValue('Server error!');
+  }
+});
+
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -88,6 +105,12 @@ const mainSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
+      })
+      .addCase(addCategory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addCategory.fulfilled, (state) => {
+        state.loading = false;
       });
   },
 });

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import styles from './AddProductForm.module.scss';
 
 interface Props {
-  categoryId: number;
+  categoryId: string;
 }
 
 const AddProductForm = (props: Props) => {
