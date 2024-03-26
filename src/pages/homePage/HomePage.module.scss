@@ -2,10 +2,32 @@
   @apply w-1/2 mx-auto;
 
   .category {
-    @apply my-4 p-4 border border-teal-600 rounded;
+    @apply my-4 p-4 border border-teal-600 rounded flex items-center justify-between;
 
     .categoryName {
       @apply text-2xl font-medium text-teal-700 cursor-pointer;
+    }
+
+    .categoryEdit {
+      @apply flex gap-4;
+
+      .categoryEditIcon {
+        @apply text-2xl text-teal-700;
+      }
+      .categoryDeleteIcon {
+        @apply text-2xl text-red-800;
+      }
+    }
+
+    .editCategoryForm {
+      @apply h-8 flex items-end;
+
+      .editCategoryFormInput {
+        @apply border-b border-x-0 border-t-0 border-teal-700 outline-none ring-0 py-0;
+      }
+      .editCategoryFormButton {
+        @apply p-2 py-1 border-b border-teal-700 text-teal-700 font-medium hover:bg-slate-200 transition-colors;
+      }
     }
   }
 

@@ -1,14 +1,24 @@
 import React from 'react';
 import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddProductForm from '../../components/addProductForm/AddProductForm';
-import styles from './HomePage.module.scss';
 import AddCategory from '../../components/addCategory/AddCategory';
+import styles from './HomePage.module.scss';
 
 const HomePage = () => {
-  const { state, accordion, handleAccordion } = useHomePage();
+  const {
+    state,
+    accordion,
+    handleAccordion,
+    openEditCategory,
+    isEditCategory,
+    handleEditCategory,
+    setCategoryName,
+  } = useHomePage();
 
   console.log(state.productsToAdd);
   return (
@@ -28,12 +38,42 @@ const HomePage = () => {
               }}
               exit={{ opacity: 0, width: 0 }}
             >
-              <motion.p
-                className={styles.categoryName}
-                onClick={() => handleAccordion(category)}
-              >
-                {category.name}
-              </motion.p>
+              <motion.div>
+                {isEditCategory !== category.id ? (
+                  <motion.p
+                    className={styles.categoryName}
+                    onClick={() => handleAccordion(category)}
+                  >
+                    {category.name}
+                  </motion.p>
+                ) : (
+                  <motion.div className={styles.editCategoryForm}>
+                    <motion.input
+                      type="text"
+                      defaultValue={category.name}
+                      onChange={(e) => setCategoryName(e.target.value)}
+                      className={styles.editCategoryFormInput}
+                    />
+                    <motion.button
+                      onClick={() => handleEditCategory(category.id)}
+                      className={styles.editCategoryFormButton}
+                    >
+                      Ok
+                    </motion.button>
+                  </motion.div>
+                )}
+              </motion.div>
+              <motion.div className={styles.categoryEdit}>
+                <motion.button
+                  onClick={() => openEditCategory(category)}
+                  className={styles.categoryEditIcon}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </motion.button>
+                <motion.button className={styles.categoryDeleteIcon}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </motion.button>
+              </motion.div>
             </motion.div>
             <AnimatePresence>
               {accordion[category.id] && (

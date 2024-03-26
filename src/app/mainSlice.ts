@@ -81,6 +81,27 @@ export const addCategory = createAsyncThunk<
   }
 });
 
+export const editCategory = createAsyncThunk<
+  Category,
+  Category,
+  { rejectValue: string }
+>('store/editCategory', async (category, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:3001/categories/${category.id}`,
+      {
+        id: category.id,
+        name: category.name,
+      },
+    );
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    return rejectWithValue('Server error!');
+  }
+});
+
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -115,6 +136,12 @@ const mainSlice = createSlice({
         state.loading = true;
       })
       .addCase(addCategory.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editCategory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editCategory.fulfilled, (state) => {
         state.loading = false;
       });
   },

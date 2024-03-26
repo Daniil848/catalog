@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Category, getCategories, getProducts } from '../../app/mainSlice';
+import {
+  Category,
+  getCategories,
+  getProducts,
+  editCategory,
+} from '../../app/mainSlice';
 
 interface Accordion {
   [key: string]: boolean;
@@ -11,11 +16,13 @@ export const useHomePage = () => {
   const dispatch = useAppDispatch();
 
   const [accordion, setAccordion] = useState<Accordion>({});
+  const [isEditCategory, setIsEditCategory] = useState<string>('');
+  const [categoryName, setCategoryName] = useState<string>('');
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
-  }, [state.isAddCategory]);
+  }, [state.isAddCategory, isEditCategory]);
 
   const handleAccordion = (category: Category) => {
     setAccordion((prevState: Accordion) => ({
@@ -24,24 +31,28 @@ export const useHomePage = () => {
     }));
   };
 
-  // const totalPriceInCategory = (categoryID: number) => {
-  //   const productsInCategory = state.products.filter(
-  //     (product) => product.categoryId == categoryID,
-  //   );
-  //   const totalPriceInCategory = productsInCategory
-  //     .map((el) => el.price)
-  //     .reduce((acc, number) => acc + number, 0);
+  const openEditCategory = (category: Category) => {
+    setIsEditCategory((prevState) => {
+      return prevState === category.id ? '' : category.id;
+    });
+  };
 
-  //   const totalQuantityInCategory = productsInCategory
-  //     .map((el) => el.quantity)
-  //     .reduce((acc, number) => acc + number, 0);
-
-  //   return totalPriceInCategory * totalQuantityInCategory;
-  // };
+  const handleEditCategory = (id: string) => {
+    const category = {
+      id: id,
+      name: categoryName,
+    };
+    dispatch(editCategory(category));
+    setIsEditCategory('');
+  };
 
   return {
     state,
     accordion,
     handleAccordion,
+    openEditCategory,
+    isEditCategory,
+    handleEditCategory,
+    setCategoryName,
   };
 };

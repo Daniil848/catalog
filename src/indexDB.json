@@ -2,19 +2,19 @@
   "categories": [
     {
       "id": "1",
-      "name": "electronics"
+      "name": "Electronics"
     },
     {
       "id": "2",
-      "name": "jewelery"
+      "name": "Jewelery"
     },
     {
       "id": "3",
-      "name": "men's clothing"
+      "name": "Men's clothing"
     },
     {
       "id": "4",
-      "name": "women's clothing"
+      "name": "Women's clothing"
     }
   ],
   "products": [
