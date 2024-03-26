@@ -1,0 +1,22 @@
+.container {
+  @apply w-3/5 mx-auto;
+  .showButton {
+    @apply mx-auto;
+  }
+
+  .tableContainer {
+    @apply p-4 border border-slate-300 rounded;
+
+    .summary {
+      @apply w-full;
+
+      .summaryHead {
+        @apply text-start uppercase bg-teal-700 text-white;
+
+        .summaryHeadTitle {
+          @apply text-start px-4 py-3;
+        }
+      }
+    }
+  }
+}
