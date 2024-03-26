@@ -6,10 +6,10 @@
   }
 
   .tableContainer {
-    @apply p-4 border border-slate-300 rounded bg-white;
+    @apply min-w-full top-[296px] px-4 pt-4 border border-slate-300 rounded-t bg-white;
 
     .summary {
-      @apply w-full;
+      @apply min-w-full;
 
       .tableCaption {
         @apply bg-slate-100 mx-auto p-6 text-2xl font-semibold text-teal-700 rounded-t;
@@ -20,6 +20,19 @@
 
         .summaryHeadTitle {
           @apply text-start px-4 py-3;
+        }
+      }
+
+      .summaryBody {
+        .summaryBodyTr {
+          @apply w-full;
+
+          .summaryBodyTd {
+            @apply bg-white border-b px-4 py-3;
+          }
+        }
+        .summaryBodyTotal {
+          @apply bg-slate-100 border-b px-4 py-3 w-full uppercase;
         }
       }
     }

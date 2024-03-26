@@ -7,7 +7,6 @@ import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddProductForm from '../../components/addProductForm/AddProductForm';
 import AddCategory from '../../components/addCategory/AddCategory';
-import ProductsSummary from '../../components/productsSummary/ProductsSummary';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
@@ -105,7 +104,6 @@ const HomePage = () => {
         ))}
         <AddCategory />
       </motion.div>
-      <ProductsSummary />
     </>
   );
 };

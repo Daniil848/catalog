@@ -1,5 +1,6 @@
 .container {
-  @apply w-1/2 mx-auto;
+  @apply w-1/2 mx-auto mb-4;
+  min-height: calc(100% - 282px);
 
   .category {
     @apply my-4 p-4 border border-teal-600 rounded flex items-center justify-between;
