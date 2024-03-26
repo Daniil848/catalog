@@ -1,9 +1,12 @@
-import React from 'react';
-import styles from './ProductsSummary.module.scss';
+import React, { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
+import { motion, AnimatePresence } from 'framer-motion';
+import styles from './ProductsSummary.module.scss';
 
 const ProductsSummary = () => {
   const state = useAppSelector((state) => state.mainSlice);
+
+  const [openSummary, setOpenSummary] = useState<boolean>(false);
 
   const totalPriceInCategory = (categoryID: string) => {
     const productsInCategory = state.products.filter(
@@ -33,67 +36,73 @@ const ProductsSummary = () => {
 
   return (
     <>
-      <div className={styles.container}>
-        <button className={styles.showButton}>Show the product summary</button>
-        <div className={styles.tableContainer}>
-          <table className={styles.summary}>
-            <caption className={styles.tableCaption}>
+      <motion.div
+        className={styles.container}
+        initial={{ y: '96px' }}
+        exit={{ y: '96px' }}
+      >
+        <motion.button className={styles.showButton}>
+          Show the product summary
+        </motion.button>
+        <motion.div className={styles.tableContainer}>
+          <motion.table className={styles.summary}>
+            <motion.caption className={styles.tableCaption}>
               Total price: ${totalPrice().toFixed(2)}
-            </caption>
-            <thead className={styles.summaryHead}>
-              <tr>
-                <th scope="col" className={styles.summaryHeadTitle}>
+            </motion.caption>
+            <motion.thead className={styles.summaryHead}>
+              <motion.tr>
+                <motion.th scope="col" className={styles.summaryHeadTitle}>
                   Product name
-                </th>
+                </motion.th>
 
-                <th scope="col" className={styles.summaryHeadTitle}>
+                <motion.th scope="col" className={styles.summaryHeadTitle}>
                   Category
-                </th>
-                <th scope="col" className={styles.summaryHeadTitle}>
+                </motion.th>
+                <motion.th scope="col" className={styles.summaryHeadTitle}>
                   Quantiy
-                </th>
-                <th scope="col" className={styles.summaryHeadTitle}>
+                </motion.th>
+                <motion.th scope="col" className={styles.summaryHeadTitle}>
                   Price
-                </th>
-              </tr>
-            </thead>
+                </motion.th>
+              </motion.tr>
+            </motion.thead>
             {state.categories.map((category) => (
               <>
-                <tbody>
+                <motion.tbody>
                   {state.products
                     .filter((el) => el.categoryId == category.id)
                     .map((product) => (
-                      <tr key={product.id} className="w-full">
-                        <td className="bg-white border-b px-4 py-3">
+                      <motion.tr key={product.id} className="w-full">
+                        <motion.td className="bg-white border-b px-4 py-3">
                           {product.title}
-                        </td>
-                        <td className="bg-white border-b px-4 py-3">
+                        </motion.td>
+                        <motion.td className="bg-white border-b px-4 py-3">
                           {category.name}
-                        </td>
-                        <td className="bg-white border-b px-4 py-3">
+                        </motion.td>
+                        <motion.td className="bg-white border-b px-4 py-3">
                           {product.quantity}
-                        </td>
-                        <td className="bg-white border-b px-4 py-3">
+                        </motion.td>
+                        <motion.td className="bg-white border-b px-4 py-3">
                           ${product.price}
-                        </td>
-                      </tr>
+                        </motion.td>
+                      </motion.tr>
                     ))}
-                  <tr>
-                    <td className="bg-slate-100 border-b px-4 py-3 w-full mt-4 uppercase">
+                  <motion.tr>
+                    <motion.td className="bg-slate-100 border-b px-4 py-3 w-full mt-4 uppercase">
                       {category.name} total:
-                    </td>
-                    <td className="bg-slate-100 border-b px-4 py-3 w-full mt-4"></td>
-                    <td className="bg-slate-100 border-b px-4 py-3 w-full mt-4"></td>
-                    <td className="bg-slate-100 border-b px-4 py-3 w-full">
+                    </motion.td>
+                    <motion.td className="bg-slate-100 border-b px-4 py-3 w-full mt-4"></motion.td>
+                    <motion.td className="bg-slate-100 border-b px-4 py-3 w-full mt-4"></motion.td>
+                    <motion.td className="bg-slate-100 border-b px-4 py-3 w-full">
                       ${totalPriceInCategory(category.id).toFixed(2)}
-                    </td>
-                  </tr>
-                </tbody>
+                    </motion.td>
+                  </motion.tr>
+                </motion.tbody>
               </>
             ))}
-          </table>
-        </div>
-      </div>
+          </motion.table>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

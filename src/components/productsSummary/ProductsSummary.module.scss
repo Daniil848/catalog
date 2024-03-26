@@ -6,7 +6,7 @@
   }
 
   .tableContainer {
-    @apply p-4 border border-slate-300 rounded;
+    @apply p-4 border border-slate-300 rounded bg-white;
 
     .summary {
       @apply w-full;
