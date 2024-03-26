@@ -19,13 +19,27 @@ const ProductsSummary = () => {
     return totalPriceInCategory * totalQuantityInCategory;
   };
 
+  const totalPrice = () => {
+    const totalPrice = state.products
+      .map((el) => el.price)
+      .reduce((acc, number) => acc + number, 0);
+
+    const totalQuantity = state.products
+      .map((el) => el.quantity)
+      .reduce((acc, number) => acc + number, 0);
+
+    return totalPrice * totalQuantity;
+  };
+
   return (
     <>
       <div className={styles.container}>
-        <button>Show products summary</button>
+        <button className={styles.showButton}>Show the product summary</button>
         <div className={styles.tableContainer}>
-          <caption></caption>
           <table className={styles.summary}>
+            <caption className={styles.tableCaption}>
+              Total price: ${totalPrice().toFixed(2)}
+            </caption>
             <thead className={styles.summaryHead}>
               <tr>
                 <th scope="col" className={styles.summaryHeadTitle}>

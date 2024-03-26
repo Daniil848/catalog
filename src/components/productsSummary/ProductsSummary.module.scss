@@ -1,7 +1,8 @@
 .container {
-  @apply w-3/5 mx-auto;
+  @apply w-3/5 mx-auto flex flex-col items-center;
+
   .showButton {
-    @apply mx-auto;
+    @apply mx-auto p-4 mb-4 bg-teal-700 text-white font-semibold rounded hover:bg-slate-200 hover:text-teal-700 transition-colors;
   }
 
   .tableContainer {
@@ -9,6 +10,10 @@
 
     .summary {
       @apply w-full;
+
+      .tableCaption {
+        @apply bg-slate-100 mx-auto p-6 text-2xl font-semibold text-teal-700 rounded-t;
+      }
 
       .summaryHead {
         @apply text-start uppercase bg-teal-700 text-white;
