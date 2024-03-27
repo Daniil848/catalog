@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHeader } from './useHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
@@ -9,6 +10,8 @@ import {
 import styles from './Header.module.scss';
 
 const Header = () => {
+  const { handleAddProducts } = useHeader();
+
   return (
     <>
       <header className={styles.header}>
@@ -22,7 +25,10 @@ const Header = () => {
         </div>
         <p className={styles.headerTitle}>Catalog</p>
         <div className={styles.headerSubmit}>
-          <button className={styles.headerSubmitButton}>
+          <button
+            className={styles.headerSubmitButton}
+            onClick={() => handleAddProducts()}
+          >
             <FontAwesomeIcon icon={faCheck} />
             <p>Synchronize</p>
           </button>

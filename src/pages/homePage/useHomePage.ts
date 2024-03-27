@@ -22,7 +22,7 @@ export const useHomePage = () => {
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
-  }, [state.isAddCategory, isEditCategory]);
+  }, [state.isAddCategory, state.isProductsAdd]);
 
   const handleAccordion = (category: Category) => {
     setAccordion((prevState: Accordion) => ({

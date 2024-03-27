@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BlockLike } from 'typescript';
 
 export interface Category {
   id: string;
@@ -21,6 +22,7 @@ export interface State {
   products: Product[];
   productsToAdd: Product[];
   isAddCategory: boolean;
+  isProductsAdd: boolean;
   loading: boolean;
   error: boolean;
 }
@@ -32,6 +34,7 @@ const initialState: State = {
   products: [],
   productsToAdd: [],
   isAddCategory: false,
+  isProductsAdd: false,
   loading: false,
   error: false,
 };
@@ -43,20 +46,6 @@ export const getCategories = createAsyncThunk<
 >('store/getCategories', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get('http://localhost:3001/categories');
-
-    return data;
-  } catch (error) {
-    return rejectWithValue('Server error!');
-  }
-});
-
-export const getProducts = createAsyncThunk<
-  Product[],
-  undefined,
-  { rejectValue: string }
->('store/getProducts', async (_, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get('http://localhost:3001/products');
 
     return data;
   } catch (error) {
@@ -102,6 +91,42 @@ export const editCategory = createAsyncThunk<
   }
 });
 
+export const getProducts = createAsyncThunk<
+  Product[],
+  undefined,
+  { rejectValue: string }
+>('store/getProducts', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get('http://localhost:3001/products');
+
+    return data;
+  } catch (error) {
+    return rejectWithValue('Server error!');
+  }
+});
+
+export const addProducts = createAsyncThunk<
+  Product[],
+  Product[],
+  { rejectValue: string }
+>('store/addProducts', async (productsArr, { rejectWithValue }) => {
+  try {
+    const promises = productsArr.map(async (product: Product) => {
+      const { data } = await axios.post(
+        'http://localhost:3001/products',
+        product,
+      );
+
+      return data;
+    });
+
+    const result = await Promise.all(promises);
+    return result;
+  } catch (error) {
+    return rejectWithValue('Server error!');
+  }
+});
+
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -125,13 +150,6 @@ const mainSlice = createSlice({
         state.loading = false;
         state.categories = action.payload;
       })
-      .addCase(getProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-      })
       .addCase(addCategory.pending, (state) => {
         state.loading = true;
       })
@@ -143,6 +161,22 @@ const mainSlice = createSlice({
       })
       .addCase(editCategory.fulfilled, (state) => {
         state.loading = false;
+      })
+      .addCase(getProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+      })
+      .addCase(addProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload;
+        state.isProductsAdd = !state.isProductsAdd;
+        state.productsToAdd = initialState.productsToAdd;
       });
   },
 });
