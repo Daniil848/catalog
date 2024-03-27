@@ -8,6 +8,7 @@ import AddProduct from '../../components/addProduct/AddProduct';
 import AddProductForm from '../../components/addProductForm/AddProductForm';
 import AddCategory from '../../components/addCategory/AddCategory';
 import styles from './HomePage.module.scss';
+import ProductsSummary from '../../components/productsSummary/ProductsSummary';
 
 const HomePage = () => {
   const {
@@ -104,6 +105,7 @@ const HomePage = () => {
         ))}
         <AddCategory />
       </motion.div>
+      <ProductsSummary />
     </>
   );
 };
