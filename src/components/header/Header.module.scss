@@ -3,9 +3,25 @@
 @tailwind utilities;
 
 .header {
-  @apply h-20 p-4 border-b border-slate-300 flex items-center;
+  @apply h-20 p-4 border-b border-slate-300 flex items-center justify-between;
+
+  .headerArrows {
+    @apply flex gap-4 w-[250px] h-fit;
+
+    .headerArrowsButton {
+      @apply bg-teal-700 p-4 rounded-full h-8 w-8 text-white flex items-center justify-center hover:bg-slate-200 hover:text-teal-700 transition-colors;
+    }
+  }
 
   .headerTitle {
     @apply font-bold text-3xl text-teal-700;
+  }
+
+  .headerSubmit {
+    @apply flex gap-4 w-[250px] h-fit;
+
+    .headerSubmitButton {
+      @apply bg-teal-700 p-4 rounded h-8 w-fit text-white flex items-center justify-center gap-2 hover:bg-slate-200 hover:text-teal-700 transition-colors;
+    }
   }
 }
