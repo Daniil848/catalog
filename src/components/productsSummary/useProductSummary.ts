@@ -37,11 +37,9 @@ export const useProductSummary = () => {
 
   const handleOpenSummary = () => {
     setOpenSummary(!openSummary);
-    if (summaryRef.current) {
-      setTimeout(() => {
-        summaryRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 1000);
-    }
+    setTimeout(() => {
+      summaryRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   return {
