@@ -1,15 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@mixin headerButtons {
+  @apply flex gap-4 w-[250px] h-fit;
+}
+
+@mixin headerButton {
+  @apply h-8 bg-teal-700 p-4 text-white flex items-center justify-center hover:bg-slate-200 hover:text-teal-700 transition-colors;
+}
 
 .header {
   @apply z-20 fixed top-0 left-0 right-0 h-16 p-4 border-b bg-white border-slate-300 flex items-center justify-between;
 
   .headerArrows {
-    @apply flex gap-4 w-[250px] h-fit;
+    @include headerButtons;
 
     .headerArrowsButton {
-      @apply bg-teal-700 p-4 rounded-full h-8 w-8 text-white flex items-center justify-center hover:bg-slate-200 hover:text-teal-700 transition-colors;
+      @include headerButton;
+      @apply rounded-full w-8;
     }
   }
 
@@ -18,10 +23,11 @@
   }
 
   .headerSubmit {
-    @apply flex gap-4 w-[250px] h-fit;
+    @include headerButtons;
 
     .headerSubmitButton {
-      @apply bg-teal-700 p-4 rounded h-8 w-fit text-white flex items-center justify-center gap-2 hover:bg-slate-200 hover:text-teal-700 transition-colors;
+      @include headerButton;
+      @apply rounded w-fit gap-2;
     }
   }
 }
