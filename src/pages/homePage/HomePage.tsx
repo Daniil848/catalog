@@ -21,7 +21,7 @@ const HomePage = () => {
     setCategoryName,
   } = useHomePage();
 
-  console.log(state.productsToAdd);
+  console.log(state.products);
   return (
     <>
       <motion.div className={styles.container}>
@@ -91,7 +91,7 @@ const HomePage = () => {
                 >
                   <motion.div className={styles.products}>
                     {state.products
-                      .filter((el) => el.categoryId == category.id)
+                      .filter((product) => product.categoryId == category.id)
                       .map((product) => (
                         <ProductCard product={product} key={product.id} />
                       ))}

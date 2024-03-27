@@ -22,7 +22,7 @@ export interface State {
   products: Product[];
   productsToAdd: Product[];
   isAddCategory: boolean;
-  isProductsAdd: boolean;
+  isProductsChange: boolean;
   loading: boolean;
   error: boolean;
 }
@@ -34,7 +34,7 @@ const initialState: State = {
   products: [],
   productsToAdd: [],
   isAddCategory: false,
-  isProductsAdd: false,
+  isProductsChange: false,
   loading: false,
   error: false,
 };
@@ -130,6 +130,22 @@ export const addProducts = createAsyncThunk<
   }
 });
 
+export const deleteProduct = createAsyncThunk<
+  Product[],
+  string,
+  { rejectValue: string }
+>('store/deleteProducts', async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(`http://localhost:3001/products/${id}`);
+    toast.success('Product has been deleted!');
+    console.log('data', data);
+
+    return data;
+  } catch (error) {
+    return rejectWithValue('Server error!');
+  }
+});
+
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -178,7 +194,15 @@ const mainSlice = createSlice({
       .addCase(addProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
-        state.isProductsAdd = !state.isProductsAdd;
+        state.isProductsChange = !state.isProductsChange;
+        state.productsToAdd = initialState.productsToAdd;
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.loading = false;
+        state.isProductsChange = !state.isProductsChange;
         state.productsToAdd = initialState.productsToAdd;
       });
   },

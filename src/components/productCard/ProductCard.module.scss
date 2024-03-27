@@ -1,11 +1,33 @@
+@mixin changeButton {
+  @apply w-fit h-fit bg-white text-sm border border-slate-300 rounded-full flex items-center justify-center p-[6px];
+}
+
+@mixin productValues {
+  @apply text-white font-medium rounded px-1 py-0.5;
+}
+
 .product {
-  @apply h-[400px] border border-slate-300 rounded p-4;
+  @apply relative h-[400px] border border-slate-300 rounded p-4;
+
+  .productChangeButtons {
+    @apply z-10 right-2 top-2 absolute flex flex-col gap-2;
+
+    .productChangeButtonEdit {
+      @include changeButton;
+      @apply text-teal-700;
+    }
+
+    .productChangeButtonDelete {
+      @include changeButton;
+      @apply text-red-700;
+    }
+  }
 
   .productImageContainer {
     @apply relative h-[55%] p-2 pb-4 border-b border-slate-300;
 
     .productImage {
-      @apply max-h-40 mx-auto bg-contain hover:scale-105 duration-300;
+      @apply max-h-[150px] mx-auto bg-contain hover:scale-105 duration-300;
     }
   }
   .productInfo {
@@ -21,7 +43,8 @@
         @apply font-medium;
 
         span {
-          @apply bg-teal-700 text-white font-medium rounded px-1 py-0.5;
+          @include productValues;
+          @apply bg-teal-700;
         }
       }
 
@@ -29,7 +52,8 @@
         @apply font-medium;
 
         span {
-          @apply bg-slate-400 text-white font-medium rounded px-1 py-0.5;
+          @include productValues;
+          @apply bg-slate-400;
         }
       }
     }
