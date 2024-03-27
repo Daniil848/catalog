@@ -7,9 +7,10 @@ const ProductsSummary = () => {
   const {
     state,
     openSummary,
-    setOpenSummary,
     totalPrice,
     totalPriceInCategory,
+    handleOpenSummary,
+    summaryRef,
   } = useProductSummary();
 
   return (
@@ -17,7 +18,7 @@ const ProductsSummary = () => {
       <motion.div className={styles.container}>
         <motion.button
           className={styles.showButton}
-          onClick={() => setOpenSummary(!openSummary)}
+          onClick={() => handleOpenSummary()}
         >
           {openSummary
             ? 'Hide the product summary'
@@ -29,7 +30,7 @@ const ProductsSummary = () => {
               Total price: ${totalPrice().toFixed(2)}
             </motion.caption>
             {openSummary && (
-              <>
+              <motion.div ref={summaryRef}>
                 <motion.thead className={styles.summaryHead}>
                   <motion.tr>
                     <motion.th scope="col" className={styles.summaryHeadTitle}>
@@ -89,7 +90,7 @@ const ProductsSummary = () => {
                     </motion.tr>
                   </motion.tbody>
                 ))}
-              </>
+              </motion.div>
             )}
           </motion.table>
         </motion.div>

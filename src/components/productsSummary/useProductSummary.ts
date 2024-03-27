@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 
 export const useProductSummary = () => {
   const state = useAppSelector((state) => state.mainSlice);
 
   const [openSummary, setOpenSummary] = useState<boolean>(false);
+  const summaryRef = useRef<HTMLDivElement>(null);
 
   const totalPriceInCategory = (categoryID: string) => {
     const productsInCategory = state.products.filter(
@@ -34,11 +35,21 @@ export const useProductSummary = () => {
     return totalPrice * totalQuantity;
   };
 
+  const handleOpenSummary = () => {
+    setOpenSummary(!openSummary);
+    if (summaryRef.current) {
+      setTimeout(() => {
+        summaryRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 1000);
+    }
+  };
+
   return {
     state,
     openSummary,
-    setOpenSummary,
     totalPrice,
     totalPriceInCategory,
+    handleOpenSummary,
+    summaryRef,
   };
 };
