@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BlockLike } from 'typescript';
+import toast from 'react-hot-toast';
 
 export interface Category {
   id: string;
@@ -63,9 +63,10 @@ export const addCategory = createAsyncThunk<
       'http://localhost:3001/categories',
       category,
     );
-
+    toast.success('Category added!');
     return data;
   } catch (error) {
+    toast.error('ServerError!');
     return rejectWithValue('Server error!');
   }
 });
@@ -83,10 +84,10 @@ export const editCategory = createAsyncThunk<
         name: category.name,
       },
     );
-    console.log(data);
-
+    toast.success('Done!');
     return data;
   } catch (error) {
+    toast.error('Server error!');
     return rejectWithValue('Server error!');
   }
 });
@@ -121,8 +122,10 @@ export const addProducts = createAsyncThunk<
     });
 
     const result = await Promise.all(promises);
+    toast.success('Products added!');
     return result;
   } catch (error) {
+    toast.error('Server error!');
     return rejectWithValue('Server error!');
   }
 });
