@@ -8,6 +8,7 @@ import {
   faPrint,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.scss';
+import PrintModal from '../printModal/PrintModal';
 
 const Header = () => {
   const { handleAddProducts } = useHeader();
@@ -37,6 +38,7 @@ const Header = () => {
             <p>Print</p>
           </button>
         </div>
+        <PrintModal />
       </header>
     </>
   );

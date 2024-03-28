@@ -1,0 +1,23 @@
+.wrapper {
+  @apply fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center min-h-full min-w-full z-40 bg-black bg-opacity-50;
+
+  .form {
+    @apply relative w-[350px] min-h-fit p-4 flex flex-col gap-4 bg-white border border-slate-300 rounded;
+
+    .closeForm {
+      @apply absolute right-3 top-2 text-teal-700;
+    }
+
+    .printbuton {
+      @apply w-fit h-8 mx-auto rounded bg-teal-700 p-4 text-white flex items-center gap-2 hover:bg-slate-200 hover:text-teal-700 transition-colors;
+    }
+
+    .textAreaContainer {
+      @apply h-full flex flex-col gap-4;
+
+      .textArea {
+        @apply grid grid-cols-1;
+      }
+    }
+  }
+}
