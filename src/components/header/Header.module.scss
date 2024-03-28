@@ -1,5 +1,5 @@
 @mixin headerButtons {
-  @apply flex gap-4 w-[250px] h-fit;
+  @apply flex gap-4 w-[280px] h-fit;
 }
 
 @mixin headerButton {
@@ -11,6 +11,7 @@
 
   .headerArrows {
     @include headerButtons;
+    @apply justify-start;
 
     .headerArrowsButton {
       @include headerButton;
@@ -24,6 +25,7 @@
 
   .headerSubmit {
     @include headerButtons;
+    @apply justify-end;
 
     .headerSubmitButton {
       @include headerButton;

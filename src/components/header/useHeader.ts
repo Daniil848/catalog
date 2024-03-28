@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addProducts, togglePrintModal } from '../../app/mainSlice';
 
@@ -6,6 +7,10 @@ export const useHeader = () => {
   const dispatch = useAppDispatch();
 
   const handleAddProducts = () => {
+    if (state.productsToAdd.length === 0) {
+      toast.error('There are no products to add');
+      return;
+    }
     dispatch(addProducts(state.productsToAdd));
   };
 
@@ -13,7 +18,6 @@ export const useHeader = () => {
     dispatch(togglePrintModal(true));
   };
   return {
-    state,
     handleAddProducts,
     handleOpenModal,
   };
