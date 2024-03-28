@@ -6,11 +6,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const PrintModal = () => {
+  const { handleCloseModal } = usePrintModal();
+
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.form}>
-          <button className={styles.closeForm}>
+          <button
+            className={styles.closeForm}
+            onClick={() => handleCloseModal()}
+          >
             <FontAwesomeIcon icon={faXmark} />
           </button>
           <button className={styles.printbuton}>

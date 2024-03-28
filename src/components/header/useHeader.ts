@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { addProducts } from '../../app/mainSlice';
+import { addProducts, togglePrintModal } from '../../app/mainSlice';
 
 export const useHeader = () => {
   const state = useAppSelector((state) => state.mainSlice);
@@ -9,7 +9,12 @@ export const useHeader = () => {
     dispatch(addProducts(state.productsToAdd));
   };
 
+  const handleOpenModal = () => {
+    dispatch(togglePrintModal(true));
+  };
   return {
+    state,
     handleAddProducts,
+    handleOpenModal,
   };
 };

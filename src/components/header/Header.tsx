@@ -11,7 +11,7 @@ import styles from './Header.module.scss';
 import PrintModal from '../printModal/PrintModal';
 
 const Header = () => {
-  const { handleAddProducts } = useHeader();
+  const { state, handleAddProducts, handleOpenModal } = useHeader();
 
   return (
     <>
@@ -33,12 +33,15 @@ const Header = () => {
             <FontAwesomeIcon icon={faCheck} />
             <p>Synchronize</p>
           </button>
-          <button className={styles.headerSubmitButton}>
+          <button
+            className={styles.headerSubmitButton}
+            onClick={() => handleOpenModal()}
+          >
             <FontAwesomeIcon icon={faPrint} />
             <p>Print</p>
           </button>
         </div>
-        <PrintModal />
+        {state.togglePrintModal && <PrintModal />}
       </header>
     </>
   );

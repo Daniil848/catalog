@@ -23,6 +23,7 @@ export interface State {
   productsToAdd: Product[];
   isAddCategory: boolean;
   isProductsChange: boolean;
+  togglePrintModal: boolean;
   loading: boolean;
   error: boolean;
 }
@@ -35,6 +36,7 @@ const initialState: State = {
   productsToAdd: [],
   isAddCategory: false,
   isProductsChange: false,
+  togglePrintModal: false,
   loading: false,
   error: false,
 };
@@ -159,6 +161,9 @@ const mainSlice = createSlice({
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
     },
+    togglePrintModal(state, action) {
+      state.togglePrintModal = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -208,7 +213,11 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setProductsToAdd, updateProductsToAdd, setIsAddCategory } =
-  mainSlice.actions;
+export const {
+  setProductsToAdd,
+  updateProductsToAdd,
+  setIsAddCategory,
+  togglePrintModal,
+} = mainSlice.actions;
 
 export default mainSlice.reducer;
