@@ -41,8 +41,8 @@ const Header = () => {
             <p>Print</p>
           </button>
         </div>
-        {state.togglePrintModal && <PrintModal />}
       </header>
+      <PrintModal />
     </>
   );
 };
