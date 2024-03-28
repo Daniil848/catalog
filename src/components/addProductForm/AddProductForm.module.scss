@@ -29,14 +29,15 @@
   .productInfo {
     @apply h-[45%] flex flex-col gap-2 pt-2;
 
-    .productArea {
-      @apply flex-grow w-full h-full inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700;
+    .productTextArea {
+      @apply w-full h-full grid grid-cols-1;
     }
+
     .wrapper {
-      @apply flex items-center justify-between gap-2;
+      @apply flex items-center justify-between gap-2 w-full;
 
       .productInput {
-        @apply w-1/2 inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700;
+        @apply w-1/2;
       }
     }
   }

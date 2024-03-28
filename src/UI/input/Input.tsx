@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import styles from './Input.module.scss';
 
 interface Props {
@@ -7,9 +8,7 @@ interface Props {
   placeholder: string | undefined;
   value: string | number;
   defaultValue: string | number;
-  onChange:
-    | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-    | undefined;
+  onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   error: boolean;
   errorText: string;
 }
@@ -18,11 +17,13 @@ const Input = (props: Partial<Props>) => {
   return (
     <>
       {' '}
-      <div className={styles.container}>
-        <label className={props.error ? styles.labelError : styles.label}>
+      <motion.div className={styles.container}>
+        <motion.label
+          className={props.error ? styles.labelError : styles.label}
+        >
           {props.label}
-        </label>
-        <input
+        </motion.label>
+        <motion.input
           type={props.type}
           placeholder={props.placeholder}
           value={props.value}
@@ -30,9 +31,9 @@ const Input = (props: Partial<Props>) => {
           onChange={props.onChange}
           className={props.error ? styles.inputError : styles.input}
           min={0}
-        ></input>
-        <p className={styles.errorText}>{props.errorText}</p>
-      </div>
+        ></motion.input>
+        <motion.p className={styles.errorText}>{props.errorText}</motion.p>
+      </motion.div>
     </>
   );
 };

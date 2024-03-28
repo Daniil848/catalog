@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import styles from './AddProductForm.module.scss';
+import Input from '../../UI/input/Input';
+import TextArea from '../../UI/textArea/TextArea';
 
 interface Props {
   categoryId: string;
@@ -53,30 +55,30 @@ const AddProductForm = (props: Props) => {
               </motion.div>
             )}
             <motion.div className={styles.productInfo}>
-              <motion.textarea
-                placeholder="Product name"
-                className={styles.productArea}
-                value={product.title}
-                onChange={(e) => handleChangeProductName(e, product.id)}
-              />
-              <motion.div
-                aria-placeholder="Product name"
-                className={styles.wrapper}
-              >
-                <motion.input
-                  type="number"
-                  placeholder="Price"
-                  className={styles.productInput}
-                  value={product.price !== 0 ? product.price : ''}
-                  onChange={(e) => handleChangeProductPrice(e, product.id)}
+              <motion.div className={styles.productTextArea}>
+                <TextArea
+                  placeholder="Product name"
+                  value={product.title}
+                  onChange={(e) => handleChangeProductName(e, product.id)}
                 />
-                <motion.input
-                  type="number"
-                  placeholder="Quantity"
-                  className={styles.productInput}
-                  value={product.quantity !== 0 ? product.quantity : ''}
-                  onChange={(e) => handleChangeProductQuantity(e, product.id)}
-                />
+              </motion.div>
+              <motion.div className={styles.wrapper}>
+                <motion.div className={styles.productInput}>
+                  <Input
+                    type="number"
+                    placeholder="Price"
+                    value={product.price !== 0 ? product.price : ''}
+                    onChange={(e) => handleChangeProductPrice(e, product.id)}
+                  />
+                </motion.div>
+                <motion.div className={styles.productInput}>
+                  <Input
+                    type="number"
+                    placeholder="Quantity"
+                    value={product.quantity !== 0 ? product.quantity : ''}
+                    onChange={(e) => handleChangeProductQuantity(e, product.id)}
+                  />
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
