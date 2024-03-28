@@ -23,13 +23,13 @@ const ProductsSummary = () => {
             ? 'Hide the product summary'
             : 'Show the product summary'}
         </button>
-        <div className={styles.tableContainer}>
+        <div className={styles.tableContainer} ref={summaryRef}>
           <table className={styles.summary}>
             <caption className={styles.tableCaption}>
               Total price: ${totalPrice().toFixed(2)}
             </caption>
             {openSummary && (
-              <div ref={summaryRef}>
+              <>
                 <thead className={styles.summaryHead}>
                   <tr>
                     <th scope="col" className={styles.summaryHeadTitle}>
@@ -79,7 +79,7 @@ const ProductsSummary = () => {
                     </tr>
                   </tbody>
                 ))}
-              </div>
+              </>
             )}
           </table>
         </div>
