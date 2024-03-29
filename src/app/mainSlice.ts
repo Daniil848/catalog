@@ -83,6 +83,18 @@ const mainSlice = createSlice({
       state.categories.push(action.payload);
       toast.success('Category added!');
     },
+    editCategory(state, action) {
+      state.categories = state.categories.map((category) => {
+        if (category.id === action.payload.id) {
+          return {
+            ...category,
+            name: action.payload.name,
+          };
+        } else {
+          return category;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder;
@@ -95,6 +107,7 @@ export const {
   setIsAddCategory,
   togglePrintModal,
   addCategory,
+  editCategory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
