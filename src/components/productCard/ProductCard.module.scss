@@ -7,10 +7,10 @@
 }
 
 .product {
-  @apply relative h-[400px] border border-slate-300 rounded p-4;
+  @apply flex relative h-[100px] border border-slate-300 rounded p-4;
 
   .productChangeButtons {
-    @apply z-10 right-2 top-2 absolute flex flex-col gap-2;
+    @apply z-10 right-4 top-4 absolute flex flex-col gap-2;
 
     .productChangeButtonEdit {
       @include changeButton;
@@ -24,20 +24,22 @@
   }
 
   .productImageContainer {
-    @apply relative h-[55%] p-2 pb-4 border-b border-slate-300;
+    @apply relative w-[100px] h-[58px];
 
     .productImage {
-      @apply max-h-[150px] mx-auto bg-contain hover:scale-105 duration-300;
+      @apply max-h-full mx-auto bg-contain hover:scale-105 duration-300;
     }
   }
+
   .productInfo {
-    @apply h-[45%] flex flex-col pt-2;
+    @apply flex flex-col ml-4 h-full;
 
     .productTitle {
-      @apply flex-grow;
+      @apply flex-grow h-1/2;
     }
+
     .wrapper {
-      @apply flex items-center justify-between;
+      @apply flex items-end gap-4 h-1/2;
 
       .productPrice {
         @apply font-medium;

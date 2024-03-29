@@ -33,6 +33,6 @@
   }
 
   .products {
-    @apply grid grid-cols-3 gap-4;
+    @apply flex flex-col gap-4;
   }
 }

@@ -90,13 +90,13 @@ const HomePage = () => {
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <motion.div className={styles.products}>
+                    <AddProduct categoryId={category.id} />
+                    <AddProductForm categoryId={category.id} />
                     {state.products
                       .filter((product) => product.categoryId == category.id)
                       .map((product) => (
                         <ProductCard product={product} key={product.id} />
                       ))}
-                    <AddProduct categoryId={category.id} />
-                    <AddProductForm categoryId={category.id} />
                   </motion.div>
                 </motion.div>
               )}
