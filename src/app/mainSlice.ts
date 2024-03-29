@@ -55,24 +55,6 @@ export const getCategories = createAsyncThunk<
   }
 });
 
-export const addCategory = createAsyncThunk<
-  void,
-  Category,
-  { rejectValue: string }
->('store/addCategory', async (category, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post(
-      'http://localhost:3001/categories',
-      category,
-    );
-    toast.success('Category added!');
-    return data;
-  } catch (error) {
-    toast.error('ServerError!');
-    return rejectWithValue('Server error!');
-  }
-});
-
 export const editCategory = createAsyncThunk<
   Category,
   Category,
@@ -164,6 +146,9 @@ const mainSlice = createSlice({
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
+    addCategory(state, action) {
+      state.categories.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -173,12 +158,6 @@ const mainSlice = createSlice({
       .addCase(getCategories.fulfilled, (state, action) => {
         state.loading = false;
         state.categories = action.payload;
-      })
-      .addCase(addCategory.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addCategory.fulfilled, (state) => {
-        state.loading = false;
       })
       .addCase(editCategory.pending, (state) => {
         state.loading = true;
@@ -218,6 +197,7 @@ export const {
   updateProductsToAdd,
   setIsAddCategory,
   togglePrintModal,
+  addCategory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

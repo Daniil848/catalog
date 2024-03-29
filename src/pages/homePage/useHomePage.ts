@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  Category,
-  getCategories,
-  getProducts,
-  editCategory,
-} from '../../app/mainSlice';
+import { Category, editCategory } from '../../app/mainSlice';
 
 interface Accordion {
   [key: string]: boolean;
@@ -18,11 +13,6 @@ export const useHomePage = () => {
   const [accordion, setAccordion] = useState<Accordion>({});
   const [isEditCategory, setIsEditCategory] = useState<string>('');
   const [categoryName, setCategoryName] = useState<string>('');
-
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getProducts());
-  }, [state.isAddCategory, state.isProductsChange]);
 
   const handleAccordion = (category: Category) => {
     setAccordion((prevState: Accordion) => ({
