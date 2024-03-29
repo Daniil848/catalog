@@ -3,16 +3,18 @@ import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import ProductCard from '../../components/productCard/ProductCard';
+// import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddProductForm from '../../components/addProductForm/AddProductForm';
 import AddCategory from '../../components/addCategory/AddCategory';
 import styles from './HomePage.module.scss';
 import ProductsSummary from '../../components/productsSummary/ProductsSummary';
+import { deleteCategory } from '../../app/mainSlice';
 
 const HomePage = () => {
   const {
     state,
+    dispatch,
     accordion,
     handleAccordion,
     openEditCategory,
@@ -71,7 +73,10 @@ const HomePage = () => {
                 >
                   <FontAwesomeIcon icon={faPenToSquare} />
                 </motion.button>
-                <motion.button className={styles.categoryDeleteIcon}>
+                <motion.button
+                  className={styles.categoryDeleteIcon}
+                  onClick={() => dispatch(deleteCategory(category.id))}
+                >
                   <FontAwesomeIcon icon={faTrash} />
                 </motion.button>
               </motion.div>

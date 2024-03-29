@@ -39,6 +39,7 @@ export const useHomePage = () => {
 
   return {
     state,
+    dispatch,
     accordion,
     handleAccordion,
     openEditCategory,

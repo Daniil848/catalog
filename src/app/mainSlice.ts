@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import { createAsyncThunk } from '@reduxjs/toolkit';
+// import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export interface Category {
@@ -86,14 +86,25 @@ const mainSlice = createSlice({
     editCategory(state, action) {
       state.categories = state.categories.map((category) => {
         if (category.id === action.payload.id) {
+          toast.success('Category changed!');
           return {
             ...category,
             name: action.payload.name,
           };
         } else {
+          toast.error('Error!');
           return category;
         }
       });
+    },
+    deleteCategory(state, action) {
+      state.categories = state.categories.filter((category) => {
+        category.id !== action.payload;
+      });
+      state.products = state.products.filter((product) => {
+        product.categoryId !== action.payload;
+      });
+      toast.success('Category deleted!');
     },
   },
   extraReducers: (builder) => {
@@ -108,6 +119,7 @@ export const {
   togglePrintModal,
   addCategory,
   editCategory,
+  deleteCategory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
