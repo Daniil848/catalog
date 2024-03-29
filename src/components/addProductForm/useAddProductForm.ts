@@ -9,7 +9,7 @@ export const useAddProductForm = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     productId: string,
   ) => {
-    const updatedProducts = state.productsToAdd.map((product) => {
+    const updatedProducts = state.products.map((product) => {
       if (product.id === productId && event.target.files) {
         return {
           ...product,
@@ -26,7 +26,7 @@ export const useAddProductForm = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     productId: string,
   ) => {
-    const updatedProducts = state.productsToAdd.map((product) => {
+    const updatedProducts = state.products.map((product) => {
       if (product.id === productId) {
         return { ...product, title: event.target.value };
       }
@@ -40,7 +40,7 @@ export const useAddProductForm = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     productId: string,
   ) => {
-    const updatedProducts = state.productsToAdd.map((product) => {
+    const updatedProducts = state.products.map((product) => {
       if (product.id === productId) {
         return { ...product, price: event.target.value };
       }
@@ -54,7 +54,7 @@ export const useAddProductForm = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     productId: string,
   ) => {
-    const updatedProducts = state.productsToAdd.map((product) => {
+    const updatedProducts = state.products.map((product) => {
       if (product.id === productId) {
         return { ...product, quantity: event.target.value };
       }

@@ -5,7 +5,6 @@ import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import styles from './AddProductForm.module.scss';
 import Input from '../../UI/input/Input';
-import TextArea from '../../UI/textArea/TextArea';
 
 interface Props {
   categoryId: string;
@@ -22,7 +21,7 @@ const AddProductForm = (props: Props) => {
 
   return (
     <>
-      {state.productsToAdd
+      {state.products
         .filter((i) => i.categoryId == props.categoryId)
         .map((product) => (
           <motion.div

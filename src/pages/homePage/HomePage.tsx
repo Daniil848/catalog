@@ -92,11 +92,11 @@ const HomePage = () => {
                   <motion.div className={styles.products}>
                     <AddProduct categoryId={category.id} />
                     <AddProductForm categoryId={category.id} />
-                    {state.products
+                    {/* {state.products
                       .filter((product) => product.categoryId == category.id)
                       .map((product) => (
                         <ProductCard product={product} key={product.id} />
-                      ))}
+                      ))} */}
                   </motion.div>
                 </motion.div>
               )}

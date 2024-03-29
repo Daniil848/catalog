@@ -90,29 +90,29 @@ export const getProducts = createAsyncThunk<
   }
 });
 
-export const addProducts = createAsyncThunk<
-  Product[],
-  Product[],
-  { rejectValue: string }
->('store/addProducts', async (productsArr, { rejectWithValue }) => {
-  try {
-    const promises = productsArr.map(async (product: Product) => {
-      const { data } = await axios.post(
-        'http://localhost:3001/products',
-        product,
-      );
+// export const addProducts = createAsyncThunk<
+//   Product[],
+//   Product[],
+//   { rejectValue: string }
+// >('store/addProducts', async (productsArr, { rejectWithValue }) => {
+//   try {
+//     const promises = productsArr.map(async (product: Product) => {
+//       const { data } = await axios.post(
+//         'http://localhost:3001/products',
+//         product,
+//       );
 
-      return data;
-    });
+//       return data;
+//     });
 
-    const result = await Promise.all(promises);
-    toast.success('Products added!');
-    return result;
-  } catch (error) {
-    toast.error('Server error!');
-    return rejectWithValue('Server error!');
-  }
-});
+//     const result = await Promise.all(promises);
+//     toast.success('Products added!');
+//     return result;
+//   } catch (error) {
+//     toast.error('Server error!');
+//     return rejectWithValue('Server error!');
+//   }
+// });
 
 export const deleteProduct = createAsyncThunk<
   Product[],
@@ -135,10 +135,13 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     setProductsToAdd(state, action) {
-      state.productsToAdd.push(action.payload);
+      state.products.push(action.payload);
     },
     updateProductsToAdd(state, action) {
-      state.productsToAdd = action.payload;
+      state.products = action.payload;
+    },
+    addCategory(state, action) {
+      state.categories.push(action.payload);
     },
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
@@ -146,9 +149,7 @@ const mainSlice = createSlice({
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
-    addCategory(state, action) {
-      state.categories.push(action.payload);
-    },
+    // addProductsToIndexDB(state, action) {},
   },
   extraReducers: (builder) => {
     builder
@@ -171,15 +172,6 @@ const mainSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
-      })
-      .addCase(addProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-        state.isProductsChange = !state.isProductsChange;
-        state.productsToAdd = initialState.productsToAdd;
       })
       .addCase(deleteProduct.pending, (state) => {
         state.loading = true;
