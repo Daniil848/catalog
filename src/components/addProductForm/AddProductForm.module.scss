@@ -1,8 +1,8 @@
 .addProductForm {
-  @apply relative p-4 h-[400px] border border-slate-300 rounded;
+  @apply relative flex p-4 h-[100px] border border-slate-300 rounded;
 
   .productUploadContainer {
-    @apply relative flex items-center justify-center h-[55%] p-2 pb-4 bg-slate-100 rounded;
+    @apply flex items-center justify-center mr-4 relative min-w-[100px] h-[68px] bg-slate-100 rounded;
 
     .productUploadIcon {
       @apply text-3xl text-teal-700;
@@ -19,25 +19,25 @@
   }
 
   .productImageContainer {
-    @apply relative h-[55%] p-2 pb-4 border-b border-slate-300;
+    @apply relative min-w-[100px] h-[68px];
 
     .productImage {
-      @apply max-h-40 mx-auto bg-contain hover:scale-105 duration-300;
+      @apply max-h-full mx-auto bg-contain hover:scale-105 duration-300;
     }
   }
 
   .productInfo {
-    @apply h-[45%] flex flex-col gap-2 pt-2;
+    @apply flex items-end justify-start gap-4 w-full;
 
-    .productTextArea {
-      @apply w-full h-full grid grid-cols-1;
+    .productNameInput {
+      @apply w-1/2;
     }
 
     .wrapper {
-      @apply flex items-center justify-between gap-2 w-full;
+      @apply flex items-center justify-between gap-4 w-1/2;
 
       .productInput {
-        @apply w-1/2;
+        @apply w-full;
       }
     }
   }

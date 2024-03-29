@@ -1,9 +1,10 @@
 .container {
+  @apply flex flex-col justify-end;
   .label {
-    @apply block text-sm font-medium text-start text-green-900;
+    @apply block text-sm font-medium text-start mb-2 text-teal-700;
   }
   .labelError {
-    @apply block text-sm font-medium text-start text-red-800;
+    @apply block text-sm font-medium text-start mb-2 text-red-800;
   }
 
   .input {
@@ -15,6 +16,6 @@
   }
 
   .errorText {
-    @apply text-red-900 text-sm mt-1;
+    @apply text-red-900 text-sm;
   }
 }

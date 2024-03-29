@@ -55,8 +55,10 @@ const AddProductForm = (props: Props) => {
               </motion.div>
             )}
             <motion.div className={styles.productInfo}>
-              <motion.div className={styles.productTextArea}>
-                <TextArea
+              <motion.div className={styles.productNameInput}>
+                <Input
+                  type="text"
+                  label="Product name"
                   placeholder="Product name"
                   value={product.title}
                   onChange={(e) => handleChangeProductName(e, product.id)}
@@ -66,6 +68,7 @@ const AddProductForm = (props: Props) => {
                 <motion.div className={styles.productInput}>
                   <Input
                     type="number"
+                    label="Price"
                     placeholder="Price"
                     value={product.price !== 0 ? product.price : ''}
                     onChange={(e) => handleChangeProductPrice(e, product.id)}
@@ -74,6 +77,7 @@ const AddProductForm = (props: Props) => {
                 <motion.div className={styles.productInput}>
                   <Input
                     type="number"
+                    label="Quantity"
                     placeholder="Quantity"
                     value={product.quantity !== 0 ? product.quantity : ''}
                     onChange={(e) => handleChangeProductQuantity(e, product.id)}

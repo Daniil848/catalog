@@ -1,8 +1,8 @@
 .addProduct {
-  @apply flex items-center justify-center h-[400px] border border-slate-300 rounded;
+  @apply flex items-center justify-center h-[100px] border border-slate-300 rounded;
 
   .addProductButton {
-    @apply w-20 h-20 rounded-full bg-teal-700 hover:bg-slate-200 text-white hover:text-teal-700 transition-colors;
+    @apply w-16 h-16 rounded-full bg-teal-700 hover:bg-slate-200 text-white hover:text-teal-700 transition-colors;
 
     .addProductIcon {
       @apply text-3xl font-bold;

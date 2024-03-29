@@ -23,7 +23,7 @@ export const useAddProductForm = () => {
   };
 
   const handleChangeProductName = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     productId: string,
   ) => {
     const updatedProducts = state.productsToAdd.map((product) => {
