@@ -7,7 +7,7 @@ export const useHeader = () => {
   const dispatch = useAppDispatch();
 
   const handleAddProducts = () => {
-    if (state.productsToAdd.length === 0) {
+    if (state.products.length === 0) {
       toast.error('There are no products to add');
       return;
     }

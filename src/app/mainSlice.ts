@@ -20,7 +20,6 @@ export interface State {
   categories: Category[];
   product: Product | null;
   products: Product[];
-  productsToAdd: Product[];
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
@@ -33,62 +32,12 @@ const initialState: State = {
   categories: [],
   product: null,
   products: [],
-  productsToAdd: [],
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
   loading: false,
   error: false,
 };
-
-export const getCategories = createAsyncThunk<
-  Category[],
-  undefined,
-  { rejectValue: string }
->('store/getCategories', async (_, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get('http://localhost:3001/categories');
-
-    return data;
-  } catch (error) {
-    return rejectWithValue('Server error!');
-  }
-});
-
-export const editCategory = createAsyncThunk<
-  Category,
-  Category,
-  { rejectValue: string }
->('store/editCategory', async (category, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.put(
-      `http://localhost:3001/categories/${category.id}`,
-      {
-        id: category.id,
-        name: category.name,
-      },
-    );
-    toast.success('Done!');
-    return data;
-  } catch (error) {
-    toast.error('Server error!');
-    return rejectWithValue('Server error!');
-  }
-});
-
-export const getProducts = createAsyncThunk<
-  Product[],
-  undefined,
-  { rejectValue: string }
->('store/getProducts', async (_, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get('http://localhost:3001/products');
-
-    return data;
-  } catch (error) {
-    return rejectWithValue('Server error!');
-  }
-});
 
 // export const addProducts = createAsyncThunk<
 //   Product[],
@@ -114,22 +63,6 @@ export const getProducts = createAsyncThunk<
 //   }
 // });
 
-export const deleteProduct = createAsyncThunk<
-  Product[],
-  string,
-  { rejectValue: string }
->('store/deleteProducts', async (id, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.delete(`http://localhost:3001/products/${id}`);
-    toast.success('Product has been deleted!');
-    console.log('data', data);
-
-    return data;
-  } catch (error) {
-    return rejectWithValue('Server error!');
-  }
-});
-
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -140,47 +73,19 @@ const mainSlice = createSlice({
     updateProductsToAdd(state, action) {
       state.products = action.payload;
     },
-    addCategory(state, action) {
-      state.categories.push(action.payload);
-    },
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
     },
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
-    // addProductsToIndexDB(state, action) {},
+    addCategory(state, action) {
+      state.categories.push(action.payload);
+      toast.success('Category added!');
+    },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(getCategories.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getCategories.fulfilled, (state, action) => {
-        state.loading = false;
-        state.categories = action.payload;
-      })
-      .addCase(editCategory.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(editCategory.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(getProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-      })
-      .addCase(deleteProduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(deleteProduct.fulfilled, (state) => {
-        state.loading = false;
-        state.isProductsChange = !state.isProductsChange;
-        state.productsToAdd = initialState.productsToAdd;
-      });
+    builder;
   },
 });
 

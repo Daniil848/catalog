@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Category, editCategory } from '../../app/mainSlice';
+import { Category } from '../../app/mainSlice';
 
 interface Accordion {
   [key: string]: boolean;
@@ -32,8 +32,6 @@ export const useHomePage = () => {
       id: id,
       name: categoryName,
     };
-    dispatch(editCategory(category));
-    setIsEditCategory('');
   };
 
   return {

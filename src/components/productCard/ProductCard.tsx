@@ -10,8 +10,6 @@ interface Props {
 }
 
 const ProductCard = (props: Props) => {
-  const { handleDeleteProduct } = useProductCard();
-
   return (
     <>
       <div className={styles.product}>
@@ -19,10 +17,7 @@ const ProductCard = (props: Props) => {
           <button className={styles.productChangeButtonEdit}>
             <FontAwesomeIcon icon={faEdit} />
           </button>
-          <button
-            className={styles.productChangeButtonDelete}
-            onClick={() => handleDeleteProduct(props.product.id)}
-          >
+          <button className={styles.productChangeButtonDelete}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>

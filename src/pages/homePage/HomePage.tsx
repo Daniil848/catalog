@@ -21,7 +21,7 @@ const HomePage = () => {
     setCategoryName,
   } = useHomePage();
 
-  console.log(state.productsToAdd);
+  console.log(state.products);
   return (
     <>
       <motion.div className={styles.container}>
