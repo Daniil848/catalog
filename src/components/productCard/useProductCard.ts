@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteProduct, updateProductsToAdd } from '../../app/mainSlice';
+import {
+  Product,
+  deleteProduct,
+  updateProductsToAdd,
+} from '../../app/mainSlice';
 import toast from 'react-hot-toast';
 
 interface SwitchById {
@@ -40,10 +44,6 @@ export const useProductCard = () => {
     toast.success('Product changed!');
     handleSwitchEditProduct(productId);
     dispatch(updateProductsToAdd(updatedProducts));
-    setProductImage('');
-    setProductName('');
-    setProductPrice(0);
-    setProductCount(0);
   };
 
   const handleDeleteProduct = (productId: string) => {
