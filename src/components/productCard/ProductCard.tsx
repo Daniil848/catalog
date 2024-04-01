@@ -29,6 +29,7 @@ const ProductCard = (props: Props) => {
     handleChangeProduct,
     isEditProduct,
     handleSwitchEditProduct,
+    handleDeleteProduct,
   } = useProductCard();
 
   return (
@@ -37,7 +38,7 @@ const ProductCard = (props: Props) => {
         .filter((i) => i.categoryId == props.categoryId)
         .map((product) => (
           <motion.div key={product.id}>
-            {!isEditProduct[product.id] ? (
+            {isEditProduct[product.id] ? (
               <motion.div
                 className={styles.product}
                 initial={{ width: 0, opacity: 0 }}
@@ -71,7 +72,10 @@ const ProductCard = (props: Props) => {
                   >
                     <FontAwesomeIcon icon={faEdit} />
                   </motion.button>
-                  <motion.button className={styles.productChangeButtonDelete}>
+                  <motion.button
+                    className={styles.productChangeButtonDelete}
+                    onClick={() => handleDeleteProduct(product.id)}
+                  >
                     <FontAwesomeIcon icon={faTrash} />
                   </motion.button>
                 </motion.div>
@@ -118,7 +122,6 @@ const ProductCard = (props: Props) => {
                       type="text"
                       label="Product name"
                       placeholder="Product name"
-                      defaultValue={product.title}
                       value={productName}
                       onChange={(e) => setProductName(e.target.value)}
                     />
@@ -155,7 +158,10 @@ const ProductCard = (props: Props) => {
                   >
                     <FontAwesomeIcon icon={faCheck} />
                   </motion.button>
-                  <motion.button className={styles.changeButtonsDelete}>
+                  <motion.button
+                    className={styles.changeButtonsDelete}
+                    onClick={() => handleDeleteProduct(product.id)}
+                  >
                     <FontAwesomeIcon icon={faTrash} />
                   </motion.button>
                 </motion.div>

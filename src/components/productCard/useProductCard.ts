@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { updateProductsToAdd } from '../../app/mainSlice';
+import { deleteProduct, updateProductsToAdd } from '../../app/mainSlice';
 import toast from 'react-hot-toast';
 
 interface SwitchById {
@@ -46,6 +46,10 @@ export const useProductCard = () => {
     setProductCount(0);
   };
 
+  const handleDeleteProduct = (productId: string) => {
+    dispatch(deleteProduct(productId));
+  };
+
   return {
     state,
     productImage,
@@ -59,5 +63,6 @@ export const useProductCard = () => {
     handleChangeProduct,
     isEditProduct,
     handleSwitchEditProduct,
+    handleDeleteProduct,
   };
 };

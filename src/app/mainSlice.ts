@@ -73,6 +73,12 @@ const mainSlice = createSlice({
     updateProductsToAdd(state, action) {
       state.products = action.payload;
     },
+    deleteProduct(state, action) {
+      state.products = state.products.filter((product) => {
+        return product.id !== action.payload;
+      });
+      toast.success('Product deleted!');
+    },
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
     },
@@ -120,6 +126,7 @@ export const {
   addCategory,
   editCategory,
   deleteCategory,
+  deleteProduct,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
