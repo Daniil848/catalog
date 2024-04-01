@@ -23,7 +23,7 @@ const HomePage = () => {
     setCategoryName,
   } = useHomePage();
 
-  console.log(state.products);
+  console.log(state.categories);
   return (
     <>
       <motion.div className={styles.container}>
@@ -75,7 +75,7 @@ const HomePage = () => {
                 </motion.button>
                 <motion.button
                   className={styles.categoryDeleteIcon}
-                  onClick={() => dispatch(deleteCategory(category.id))}
+                  onClick={() => dispatch(deleteCategory(category))}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </motion.button>

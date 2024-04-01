@@ -99,10 +99,10 @@ const mainSlice = createSlice({
     },
     deleteCategory(state, action) {
       state.categories = state.categories.filter((category) => {
-        category.id !== action.payload;
+        return category.id !== action.payload.id;
       });
       state.products = state.products.filter((product) => {
-        product.categoryId !== action.payload;
+        return product.categoryId !== action.payload.id;
       });
       toast.success('Category deleted!');
     },
