@@ -18,10 +18,17 @@ interface Props {
 const ProductCard = (props: Props) => {
   const {
     state,
-    handleChangeProductImage,
-    handleChangeProductName,
-    handleChangeProductPrice,
-    handleChangeProductQuantity,
+    productImage,
+    productName,
+    productPrice,
+    productCount,
+    setProductImage,
+    setProductName,
+    setProductPrice,
+    setProductCount,
+    handleChangeProduct,
+    isEditProduct,
+    handleSwitchEditProduct,
   } = useProductCard();
 
   return (
@@ -29,108 +36,132 @@ const ProductCard = (props: Props) => {
       {state.products
         .filter((i) => i.categoryId == props.categoryId)
         .map((product) => (
-          <>
-            <div className={styles.product}>
-              <div className={styles.productImageContainer}>
-                <img
-                  src={product.image}
-                  alt="product image"
-                  className={styles.productImage}
-                />
-              </div>
-              <div className={styles.productInfo}>
-                <p className={styles.productTitle}>{product.title}</p>
-                <div className={styles.wrapper}>
-                  <p className={styles.productPrice}>
-                    Price: <span>${product.price}</span>
-                  </p>
-                  <p className={styles.productQuantity}>
-                    Quantity: <span>{product.quantity}</span>
-                  </p>
-                </div>
-              </div>
-              <div className={styles.productChangeButtons}>
-                <button className={styles.productChangeButtonEdit}>
-                  <FontAwesomeIcon icon={faEdit} />
-                </button>
-                <button className={styles.productChangeButtonDelete}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </div>
-            </div>
-
-            <motion.div
-              className={styles.addProductForm}
-              key={product.id}
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 'auto', opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-            >
-              {!product.image ? (
-                <motion.div className={styles.productUploadContainer}>
-                  <motion.input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleChangeProductImage(e, product.id)}
-                    id="upload-photo"
-                  ></motion.input>
-                  <FontAwesomeIcon
-                    icon={faArrowUpFromBracket}
-                    className={styles.productUploadIcon}
-                  ></FontAwesomeIcon>
-                </motion.div>
-              ) : (
+          <motion.div key={product.id}>
+            {!isEditProduct[product.id] ? (
+              <motion.div
+                className={styles.product}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: 'auto', opacity: 1 }}
+                exit={{ width: 0, opacity: 0 }}
+              >
                 <motion.div className={styles.productImageContainer}>
                   <motion.img
                     src={product.image}
-                    alt="product image"
+                    alt="product"
                     className={styles.productImage}
                   />
                 </motion.div>
-              )}
-              <motion.div className={styles.productInfo}>
-                <motion.div className={styles.productNameInput}>
-                  <Input
-                    type="text"
-                    label="Product name"
-                    placeholder="Product name"
-                    value={product.title}
-                    onChange={(e) => handleChangeProductName(e, product.id)}
-                  />
-                </motion.div>
-                <motion.div className={styles.wrapper}>
-                  <motion.div className={styles.productInput}>
-                    <Input
-                      type="number"
-                      label="Price"
-                      placeholder="Price"
-                      value={product.price !== 0 ? product.price : ''}
-                      onChange={(e) => handleChangeProductPrice(e, product.id)}
-                    />
+                <motion.div className={styles.productInfo}>
+                  <motion.p className={styles.productTitle}>
+                    {product.title}
+                  </motion.p>
+                  <motion.div className={styles.wrapper}>
+                    <motion.p className={styles.productPrice}>
+                      Price: <motion.span>${product.price}</motion.span>
+                    </motion.p>
+                    <motion.p className={styles.productQuantity}>
+                      Count: <span>{product.quantity}</span>
+                    </motion.p>
                   </motion.div>
-                  <motion.div className={styles.productInput}>
-                    <Input
-                      type="number"
-                      label="Quantity"
-                      placeholder="Quantity"
-                      value={product.quantity !== 0 ? product.quantity : ''}
+                </motion.div>
+                <motion.div className={styles.productChangeButtons}>
+                  <motion.button
+                    className={styles.productChangeButtonEdit}
+                    onClick={() => handleSwitchEditProduct(product.id)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </motion.button>
+                  <motion.button className={styles.productChangeButtonDelete}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </motion.button>
+                </motion.div>
+              </motion.div>
+            ) : (
+              <motion.div
+                className={styles.addProductForm}
+                key={product.id}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: 'auto', opacity: 1 }}
+                exit={{ width: 0, opacity: 0 }}
+              >
+                {!productImage ? (
+                  <motion.div className={styles.productUploadContainer}>
+                    <motion.input
+                      type="file"
+                      accept="image/*"
                       onChange={(e) =>
-                        handleChangeProductQuantity(e, product.id)
+                        e.target.files && e.target.files.length > 0
+                          ? setProductImage(
+                              URL.createObjectURL(e.target.files[0]),
+                            )
+                          : setProductImage('')
                       }
+                      id="upload-photo"
+                    ></motion.input>
+                    <FontAwesomeIcon
+                      icon={faArrowUpFromBracket}
+                      className={styles.productUploadIcon}
+                    ></FontAwesomeIcon>
+                  </motion.div>
+                ) : (
+                  <motion.div className={styles.productImageContainer}>
+                    <motion.img
+                      src={productImage}
+                      alt="product"
+                      className={styles.productImage}
                     />
                   </motion.div>
+                )}
+                <motion.div className={styles.productInfo}>
+                  <motion.div className={styles.productNameInput}>
+                    <Input
+                      type="text"
+                      label="Product name"
+                      placeholder="Product name"
+                      defaultValue={product.title}
+                      value={productName}
+                      onChange={(e) => setProductName(e.target.value)}
+                    />
+                  </motion.div>
+                  <motion.div className={styles.wrapper}>
+                    <motion.div className={styles.productInput}>
+                      <Input
+                        type="number"
+                        label="Price"
+                        placeholder="Price"
+                        value={productPrice}
+                        onChange={(e) =>
+                          setProductPrice(Number(e.target.value))
+                        }
+                      />
+                    </motion.div>
+                    <motion.div className={styles.productInput}>
+                      <Input
+                        type="number"
+                        label="Count"
+                        placeholder="Count"
+                        value={productCount}
+                        onChange={(e) =>
+                          setProductCount(Number(e.target.value))
+                        }
+                      />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+                <motion.div className={styles.changeButtons}>
+                  <motion.button
+                    className={styles.changeButtonsEdit}
+                    onClick={() => handleChangeProduct(product.id)}
+                  >
+                    <FontAwesomeIcon icon={faCheck} />
+                  </motion.button>
+                  <motion.button className={styles.changeButtonsDelete}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </motion.button>
                 </motion.div>
               </motion.div>
-              <motion.div className={styles.changeButtons}>
-                <motion.button className={styles.changeButtonsEdit}>
-                  <FontAwesomeIcon icon={faCheck} />
-                </motion.button>
-                <motion.button className={styles.changeButtonsDelete}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </motion.button>
-              </motion.div>
-            </motion.div>
-          </>
+            )}
+          </motion.div>
         ))}
     </>
   );

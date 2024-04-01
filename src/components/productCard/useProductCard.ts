@@ -1,74 +1,63 @@
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { updateProductsToAdd } from '../../app/mainSlice';
+import toast from 'react-hot-toast';
+
+interface SwitchById {
+  [key: string]: boolean;
+}
 
 export const useProductCard = () => {
   const state = useAppSelector((state) => state.mainSlice);
   const dispatch = useAppDispatch();
 
-  const handleChangeProductImage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    productId: string,
-  ) => {
+  const [isEditProduct, setIsEditProduct] = useState<SwitchById>({});
+  const [productImage, setProductImage] = useState<string>('');
+  const [productName, setProductName] = useState<string>('');
+  const [productPrice, setProductPrice] = useState<number>();
+  const [productCount, setProductCount] = useState<number>();
+
+  const handleSwitchEditProduct = (productId: string) => {
+    setIsEditProduct((prevState: SwitchById) => ({
+      ...prevState,
+      [productId]: !prevState[productId] || false,
+    }));
+  };
+
+  const handleChangeProduct = (productId: string) => {
     const updatedProducts = state.products.map((product) => {
-      if (product.id === productId && event.target.files) {
+      if (product.id === productId) {
         return {
           ...product,
-          image: URL.createObjectURL(event.target.files[0]),
+          image: productImage,
+          title: productName,
+          price: productPrice,
+          quantity: productCount,
         };
       }
       return product;
     });
-
+    toast.success('Product changed!');
+    handleSwitchEditProduct(productId);
     dispatch(updateProductsToAdd(updatedProducts));
-  };
-
-  const handleChangeProductName = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    productId: string,
-  ) => {
-    const updatedProducts = state.products.map((product) => {
-      if (product.id === productId) {
-        return { ...product, title: event.target.value };
-      }
-      return product;
-    });
-
-    dispatch(updateProductsToAdd(updatedProducts));
-  };
-
-  const handleChangeProductPrice = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    productId: string,
-  ) => {
-    const updatedProducts = state.products.map((product) => {
-      if (product.id === productId) {
-        return { ...product, price: event.target.value };
-      }
-      return product;
-    });
-
-    dispatch(updateProductsToAdd(updatedProducts));
-  };
-
-  const handleChangeProductQuantity = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    productId: string,
-  ) => {
-    const updatedProducts = state.products.map((product) => {
-      if (product.id === productId) {
-        return { ...product, quantity: event.target.value };
-      }
-      return product;
-    });
-
-    dispatch(updateProductsToAdd(updatedProducts));
+    setProductImage('');
+    setProductName('');
+    setProductPrice(0);
+    setProductCount(0);
   };
 
   return {
     state,
-    handleChangeProductImage,
-    handleChangeProductName,
-    handleChangeProductPrice,
-    handleChangeProductQuantity,
+    productImage,
+    productName,
+    productPrice,
+    productCount,
+    setProductImage,
+    setProductName,
+    setProductPrice,
+    setProductCount,
+    handleChangeProduct,
+    isEditProduct,
+    handleSwitchEditProduct,
   };
 };
