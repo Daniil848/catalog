@@ -3,9 +3,8 @@ import { useHomePage } from './useHomePage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import ProductCard from '../../components/productCard/ProductCard';
+import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
-import AddProductForm from '../../components/addProductForm/AddProductForm';
 import AddCategory from '../../components/addCategory/AddCategory';
 import styles from './HomePage.module.scss';
 import ProductsSummary from '../../components/productsSummary/ProductsSummary';
@@ -96,12 +95,7 @@ const HomePage = () => {
                 >
                   <motion.div className={styles.products}>
                     <AddProduct categoryId={category.id} />
-                    <AddProductForm categoryId={category.id} />
-                    {/* {state.products
-                      .filter((product) => product.categoryId == category.id)
-                      .map((product) => (
-                        <ProductCard product={product} key={product.id} />
-                      ))} */}
+                    <ProductCard categoryId={category.id} />
                   </motion.div>
                 </motion.div>
               )}
