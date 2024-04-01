@@ -1,7 +1,12 @@
 import React from 'react';
 import { useAddProductForm } from './useAddProductForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowUpFromBracket,
+  faEdit,
+  faTrash,
+  faCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import styles from './AddProductForm.module.scss';
 import Input from '../../UI/input/Input';
@@ -83,6 +88,14 @@ const AddProductForm = (props: Props) => {
                   />
                 </motion.div>
               </motion.div>
+            </motion.div>
+            <motion.div className={styles.changeButtons}>
+              <motion.button className={styles.changeButtons}>
+                <FontAwesomeIcon icon={faEdit} />
+              </motion.button>
+              <motion.button className={styles.changeButtons}>
+                <FontAwesomeIcon icon={faTrash} />
+              </motion.button>
             </motion.div>
           </motion.div>
         ))}
