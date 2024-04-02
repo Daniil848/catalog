@@ -11,10 +11,10 @@ export const useHeader = () => {
   };
 
   const synchronizeData = () => {
-    if (!state.products.length && !state.categories.length) {
-      toast.error('There are no data to add!');
-      return;
-    }
+    // if (!state.products.length && !state.categories.length) {
+    //   toast.error('There are no data to add!');
+    //   return;
+    // }
 
     dispatch(synchronizeIdexDb());
   };

@@ -38,7 +38,7 @@ const ProductCard = (props: Props) => {
         .filter((i) => i.categoryId == props.categoryId)
         .map((product) => (
           <motion.div key={product.id}>
-            {isEditProduct[product.id] ? (
+            {!isEditProduct[product.id] ? (
               <motion.div
                 className={styles.product}
                 initial={{ width: 0, opacity: 0 }}

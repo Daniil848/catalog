@@ -117,6 +117,13 @@ const mainSlice = createSlice({
       localStorage.setItem('categories', JSON.stringify(state.categories));
       toast.success('Synchronized!');
     },
+    getDataFromIndexDB(state) {
+      const categories = JSON.parse(localStorage.getItem('categories') || '{}');
+      const products = JSON.parse(localStorage.getItem('products') || '{}');
+
+      state.categories = categories.map((category: Category) => category);
+      state.products = products.map((product: Product) => product);
+    },
   },
   extraReducers: (builder) => {
     builder;
@@ -133,6 +140,7 @@ export const {
   deleteCategory,
   deleteProduct,
   synchronizeIdexDb,
+  getDataFromIndexDB,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
