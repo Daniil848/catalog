@@ -16,10 +16,9 @@ export interface Product {
   quantity: number;
 }
 export interface State {
-  category: Category | null;
   categories: Category[];
-  product: Product | null;
   products: Product[];
+  history: [];
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
@@ -28,10 +27,9 @@ export interface State {
 }
 
 const initialState: State = {
-  category: null,
   categories: [],
-  product: null,
   products: [],
+  history: [],
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
@@ -67,6 +65,7 @@ const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
   reducers: {
+    //========================PRODUCTS ACTIONS===================
     setProductsToAdd(state, action) {
       state.products.push(action.payload);
     },
@@ -79,11 +78,12 @@ const mainSlice = createSlice({
       });
       toast.success('Product deleted!');
     },
-    setIsAddCategory(state, action) {
-      state.isAddCategory = action.payload;
-    },
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
+    },
+    //=======================CATEGORIES ACTIONS===================
+    setIsAddCategory(state, action) {
+      state.isAddCategory = action.payload;
     },
     addCategory(state, action) {
       state.categories.push(action.payload);
@@ -112,6 +112,7 @@ const mainSlice = createSlice({
       });
       toast.success('Category deleted!');
     },
+    //===========================INDEXDB ACTIONS=================================
     synchronizeIdexDb(state) {
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('categories', JSON.stringify(state.categories));
