@@ -18,8 +18,9 @@ const HomePage = () => {
     handleAccordion,
     openEditCategory,
     isEditCategory,
-    handleEditCategory,
+    categoryName,
     setCategoryName,
+    handleEditCategory,
   } = useHomePage();
 
   console.log(state.products, state.categories);
@@ -52,7 +53,7 @@ const HomePage = () => {
                   <motion.div className={styles.editCategoryForm}>
                     <motion.input
                       type="text"
-                      defaultValue={category.name}
+                      value={categoryName ?? ''}
                       onChange={(e) => setCategoryName(e.target.value)}
                       className={styles.editCategoryFormInput}
                     />

@@ -52,6 +52,7 @@ export const useHomePage = () => {
     handleAccordion,
     openEditCategory,
     isEditCategory,
+    categoryName,
     handleEditCategory,
     setCategoryName,
   };
