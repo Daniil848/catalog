@@ -11,6 +11,7 @@ interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   error: boolean;
   errorText: string;
+  name: string;
 }
 
 const Input = (props: Partial<Props>) => {
@@ -31,6 +32,7 @@ const Input = (props: Partial<Props>) => {
           onChange={props.onChange}
           className={props.error ? styles.inputError : styles.input}
           min={0}
+          name={props.name}
         ></motion.input>
         <motion.p className={styles.errorText}>{props.errorText}</motion.p>
       </motion.div>

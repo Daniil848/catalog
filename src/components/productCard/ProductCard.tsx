@@ -18,14 +18,15 @@ interface Props {
 const ProductCard = (props: Props) => {
   const {
     state,
+    handleProductName,
     productImage,
     productName,
     productPrice,
     productCount,
     setProductImage,
-    setProductName,
-    setProductPrice,
-    setProductCount,
+    handleProductImage,
+    handleProductPrice,
+    handleProductCount,
     handleChangeProduct,
     isEditProduct,
     handleSwitchEditProduct,
@@ -88,17 +89,27 @@ const ProductCard = (props: Props) => {
                 animate={{ width: 'auto', opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
               >
-                {!productImage ? (
+                {productImage[product.id] ? (
+                  <motion.div className={styles.productImageContainer}>
+                    <motion.img
+                      src={productImage[product.id]}
+                      alt="product"
+                      className={styles.productImage}
+                    />
+                  </motion.div>
+                ) : (
                   <motion.div className={styles.productUploadContainer}>
                     <motion.input
                       type="file"
+                      name={`${product.image}-${product.id}`}
                       accept="image/*"
                       onChange={(e) =>
                         e.target.files && e.target.files.length > 0
-                          ? setProductImage(
+                          ? handleProductImage(
                               URL.createObjectURL(e.target.files[0]),
+                              product.id,
                             )
-                          : setProductImage('')
+                          : setProductImage({})
                       }
                       id="upload-photo"
                     ></motion.input>
@@ -107,45 +118,44 @@ const ProductCard = (props: Props) => {
                       className={styles.productUploadIcon}
                     ></FontAwesomeIcon>
                   </motion.div>
-                ) : (
-                  <motion.div className={styles.productImageContainer}>
-                    <motion.img
-                      src={productImage}
-                      alt="product"
-                      className={styles.productImage}
-                    />
-                  </motion.div>
                 )}
                 <motion.div className={styles.productInfo}>
                   <motion.div className={styles.productNameInput}>
                     <Input
                       type="text"
+                      name={`${product.title}-${product.id}`}
                       label="Product name"
                       placeholder="Product name"
-                      value={productName}
-                      onChange={(e) => setProductName(e.target.value)}
+                      value={productName[product.id] ?? product.title ?? ''}
+                      onChange={(e) =>
+                        handleProductName(e.target.value, product.id)
+                      }
                     />
                   </motion.div>
                   <motion.div className={styles.wrapper}>
                     <motion.div className={styles.productInput}>
                       <Input
                         type="number"
+                        name={`${product.price}-${product.id}`}
                         label="Price"
                         placeholder="Price"
-                        value={productPrice}
+                        value={productPrice[product.id] ?? product.price ?? ''}
                         onChange={(e) =>
-                          setProductPrice(Number(e.target.value))
+                          handleProductPrice(Number(e.target.value), product.id)
                         }
                       />
                     </motion.div>
                     <motion.div className={styles.productInput}>
                       <Input
                         type="number"
+                        name={`${product.quantity}-${product.id}`}
                         label="Count"
                         placeholder="Count"
-                        value={productCount}
+                        value={
+                          productCount[product.id] ?? product.quantity ?? ''
+                        }
                         onChange={(e) =>
-                          setProductCount(Number(e.target.value))
+                          handleProductCount(Number(e.target.value), product.id)
                         }
                       />
                     </motion.div>

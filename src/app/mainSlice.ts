@@ -148,14 +148,15 @@ const mainSlice = createSlice({
 export const {
   setProductsToAdd,
   updateProductsToAdd,
+  deleteProduct,
   setIsAddCategory,
-  togglePrintModal,
   addCategory,
   editCategory,
   deleteCategory,
-  deleteProduct,
   synchronizeIdexDb,
   getDataFromIndexDB,
+  togglePrintModal,
+  setHistory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
