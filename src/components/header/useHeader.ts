@@ -1,24 +1,25 @@
 import toast from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { togglePrintModal } from '../../app/mainSlice';
+import { synchronizeIdexDb, togglePrintModal } from '../../app/mainSlice';
 
 export const useHeader = () => {
   const state = useAppSelector((state) => state.mainSlice);
   const dispatch = useAppDispatch();
 
-  const handleAddProducts = () => {
-    if (state.products.length === 0) {
-      toast.error('There are no products to add');
-      return;
-    }
-    // dispatch(addProducts(state.productsToAdd));
-  };
-
   const handleOpenModal = () => {
     dispatch(togglePrintModal(true));
   };
+
+  const synchronizeData = () => {
+    if (!state.products.length && !state.categories.length) {
+      toast.error('There are no data to add!');
+      return;
+    }
+
+    dispatch(synchronizeIdexDb());
+  };
   return {
-    handleAddProducts,
     handleOpenModal,
+    synchronizeData,
   };
 };

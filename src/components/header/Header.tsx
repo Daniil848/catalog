@@ -11,7 +11,7 @@ import styles from './Header.module.scss';
 import PrintModal from '../printModal/PrintModal';
 
 const Header = () => {
-  const { handleAddProducts, handleOpenModal } = useHeader();
+  const { handleOpenModal, synchronizeData } = useHeader();
 
   return (
     <>
@@ -28,10 +28,10 @@ const Header = () => {
         <div className={styles.headerSubmit}>
           <button
             className={styles.headerSubmitButton}
-            onClick={() => handleAddProducts()}
+            onClick={() => synchronizeData()}
           >
             <FontAwesomeIcon icon={faCheck} />
-            <p>Add products</p>
+            <p>Synchornize</p>
           </button>
           <button
             className={styles.headerSubmitButton}

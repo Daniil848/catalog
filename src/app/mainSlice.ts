@@ -112,6 +112,11 @@ const mainSlice = createSlice({
       });
       toast.success('Category deleted!');
     },
+    synchronizeIdexDb(state) {
+      localStorage.setItem('products', JSON.stringify(state.products));
+      localStorage.setItem('categories', JSON.stringify(state.categories));
+      toast.success('Synchronized!');
+    },
   },
   extraReducers: (builder) => {
     builder;
@@ -127,6 +132,7 @@ export const {
   editCategory,
   deleteCategory,
   deleteProduct,
+  synchronizeIdexDb,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
