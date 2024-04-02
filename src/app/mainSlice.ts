@@ -18,7 +18,7 @@ export interface Product {
 export interface State {
   categories: Category[];
   products: Product[];
-  history: [];
+  history: [Product[]];
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
@@ -29,7 +29,7 @@ export interface State {
 const initialState: State = {
   categories: [],
   products: [],
-  history: [],
+  history: [[]],
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
@@ -65,7 +65,7 @@ const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
   reducers: {
-    //========================PRODUCTS ACTIONS===================
+    //=============================PRODUCTS ACTIONS=============================
     setProductsToAdd(state, action) {
       state.products.push(action.payload);
     },
@@ -78,10 +78,7 @@ const mainSlice = createSlice({
       });
       toast.success('Product deleted!');
     },
-    togglePrintModal(state, action) {
-      state.togglePrintModal = action.payload;
-    },
-    //=======================CATEGORIES ACTIONS===================
+    //=============================CATEGORIES ACTIONS=============================
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
     },
@@ -112,7 +109,7 @@ const mainSlice = createSlice({
       });
       toast.success('Category deleted!');
     },
-    //===========================INDEXDB ACTIONS=================================
+    //=============================INDEXDB ACTIONS=============================
     synchronizeIdexDb(state) {
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('categories', JSON.stringify(state.categories));
@@ -122,8 +119,25 @@ const mainSlice = createSlice({
       const categories = JSON.parse(localStorage.getItem('categories') || '{}');
       const products = JSON.parse(localStorage.getItem('products') || '{}');
 
-      state.categories = categories.map((category: Category) => category);
-      state.products = products.map((product: Product) => product);
+      if (Array.isArray(categories)) {
+        state.categories = categories.map((category) => category);
+      } else {
+        state.categories = [];
+      }
+
+      if (Array.isArray(products)) {
+        state.products = products.map((product) => product);
+      } else {
+        state.products = [];
+      }
+    },
+    //=============================PRINT ACTIONS=============================
+    togglePrintModal(state, action) {
+      state.togglePrintModal = action.payload;
+    },
+    //=============================HISTORY ACTIONS=============================
+    setHistory(state, action) {
+      state.history.push(action.payload);
     },
   },
   extraReducers: (builder) => {
