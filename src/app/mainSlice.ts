@@ -31,7 +31,7 @@ const initialState: State = {
   categories: [],
   products: [],
   history: [[]],
-  historyIndex: -1,
+  historyIndex: 1,
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
@@ -140,7 +140,15 @@ const mainSlice = createSlice({
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
-    //=============================HISTORY ACTIONS=============================
+    //=============================HISTORY ACTIONS============================
+    setPervHistoryIndex(state) {
+      if (state.historyIndex >= state.history.length) return;
+      state.historyIndex++;
+    },
+    setNextHistoryIndex(state) {
+      if (state.historyIndex <= 1) return;
+      state.historyIndex--;
+    },
   },
   extraReducers: (builder) => {
     builder;
@@ -158,6 +166,8 @@ export const {
   synchronizeIdexDb,
   getDataFromIndexDB,
   togglePrintModal,
+  setNextHistoryIndex,
+  setPervHistoryIndex,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

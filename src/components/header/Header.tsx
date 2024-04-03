@@ -9,18 +9,25 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.scss';
 import PrintModal from '../printModal/PrintModal';
+import { setNextHistoryIndex, setPervHistoryIndex } from '../../app/mainSlice';
 
 const Header = () => {
-  const { handleOpenModal, synchronizeData } = useHeader();
+  const { dispatch, handleOpenModal, synchronizeData } = useHeader();
 
   return (
     <>
       <header className={styles.header}>
         <div className={styles.headerArrows}>
-          <button className={styles.headerArrowsButton}>
+          <button
+            className={styles.headerArrowsButton}
+            onClick={() => dispatch(setPervHistoryIndex())}
+          >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <button className={styles.headerArrowsButton}>
+          <button
+            className={styles.headerArrowsButton}
+            onClick={() => dispatch(setNextHistoryIndex())}
+          >
             <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>

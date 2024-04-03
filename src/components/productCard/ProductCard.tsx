@@ -35,7 +35,7 @@ const ProductCard = (props: Props) => {
 
   return (
     <>
-      {state.history[state.history.length - 1]
+      {state.history[state.history.length - state.historyIndex]
         .filter((i) => i.categoryId == props.categoryId)
         .map((product) => (
           <motion.div key={product.id}>
