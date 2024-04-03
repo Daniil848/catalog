@@ -10,17 +10,19 @@ const Footer = () => {
     <>
       {openSummary && <ProductsSummary />}
       <footer className={styles.footer}>
-        <button
-          className={styles.showButton}
-          onClick={() => handleOpenSummary()}
-        >
-          {openSummary
-            ? 'Hide the product summary'
-            : 'Show the product summary'}
-        </button>
-        <p className={styles.footerPrice}>
-          Total price: ${totalPrice().toFixed(2)}
-        </p>
+        <div className={styles.wrapper}>
+          <button
+            className={styles.showButton}
+            onClick={() => handleOpenSummary()}
+          >
+            {openSummary
+              ? 'Hide the product summary'
+              : 'Show the product summary'}
+          </button>
+          <p className={styles.footerPrice}>
+            Total price: ${totalPrice().toFixed(2)}
+          </p>
+        </div>
       </footer>
     </>
   );
