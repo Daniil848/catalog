@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  Product,
-  deleteProduct,
-  setHistory,
-  updateProductsToAdd,
-} from '../../app/mainSlice';
+import { deleteProduct, updateProductsToAdd } from '../../app/mainSlice';
 import toast from 'react-hot-toast';
 
 export const useProductCard = () => {
@@ -71,7 +66,6 @@ export const useProductCard = () => {
       return product;
     });
     handleSwitchEditProduct(productId);
-    dispatch(setHistory(state.products));
     console.log(state.history);
 
     dispatch(updateProductsToAdd(updatedProducts));

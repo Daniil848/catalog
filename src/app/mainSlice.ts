@@ -19,6 +19,7 @@ export interface State {
   categories: Category[];
   products: Product[];
   history: [Product[]];
+  historyIndex: number;
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
@@ -30,6 +31,7 @@ const initialState: State = {
   categories: [],
   products: [],
   history: [[]],
+  historyIndex: -1,
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
@@ -68,14 +70,17 @@ const mainSlice = createSlice({
     //=============================PRODUCTS ACTIONS=============================
     setProductsToAdd(state, action) {
       state.products.push(action.payload);
+      state.history.push(state.products);
     },
     updateProductsToAdd(state, action) {
       state.products = action.payload;
+      state.history.push(state.products);
     },
     deleteProduct(state, action) {
       state.products = state.products.filter((product) => {
         return product.id !== action.payload;
       });
+      state.history.push(state.products);
       toast.success('Product deleted!');
     },
     //=============================CATEGORIES ACTIONS=============================
@@ -136,9 +141,6 @@ const mainSlice = createSlice({
       state.togglePrintModal = action.payload;
     },
     //=============================HISTORY ACTIONS=============================
-    setHistory(state, action) {
-      state.history.push(action.payload);
-    },
   },
   extraReducers: (builder) => {
     builder;
@@ -156,7 +158,6 @@ export const {
   synchronizeIdexDb,
   getDataFromIndexDB,
   togglePrintModal,
-  setHistory,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
