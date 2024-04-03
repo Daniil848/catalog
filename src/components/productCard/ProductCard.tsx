@@ -47,16 +47,24 @@ const ProductCard = (props: Props) => {
                 exit={{ width: 0, opacity: 0 }}
               >
                 <motion.div className={styles.productImageContainer}>
-                  <motion.img
-                    src={product.image}
-                    alt="product"
-                    className={styles.productImage}
-                  />
+                  {product.image ? (
+                    <motion.img
+                      src={product.image}
+                      alt="product"
+                      className={styles.productImage}
+                    />
+                  ) : (
+                    <motion.div className="w-full h-full bg-slate-200 animate-pulse rounded"></motion.div>
+                  )}
                 </motion.div>
                 <motion.div className={styles.productInfo}>
-                  <motion.p className={styles.productTitle}>
-                    {product.title}
-                  </motion.p>
+                  {product.title ? (
+                    <motion.p className={styles.productTitle}>
+                      {product.title}
+                    </motion.p>
+                  ) : (
+                    <motion.div className="w-1/2 h-1/2 bg-slate-200 rounded animate-pulse" />
+                  )}
                   <motion.div className={styles.wrapper}>
                     <motion.p className={styles.productPrice}>
                       Price: <motion.span>${product.price}</motion.span>

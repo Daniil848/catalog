@@ -50,7 +50,7 @@
 
         span {
           @include productValues;
-          @apply bg-teal-700;
+          @apply bg-teal-700 min-w-5;
         }
       }
 
