@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHomePage } from './useHomePage';
+import { deleteCategory } from '../../app/mainSlice';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,8 +8,6 @@ import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddCategory from '../../components/addCategory/AddCategory';
 import styles from './HomePage.module.scss';
-import ProductsSummary from '../../components/productsSummary/ProductsSummary';
-import { deleteCategory } from '../../app/mainSlice';
 
 const HomePage = () => {
   const {
@@ -105,7 +104,6 @@ const HomePage = () => {
         ))}
         <AddCategory />
       </motion.div>
-      <ProductsSummary />
     </>
   );
 };
