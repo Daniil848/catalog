@@ -8,7 +8,15 @@ import styles from './PrintModal.module.scss';
 import PrintSheet from '../printSheet/PrintSheet';
 
 const PrintModal = () => {
-  const { state, handleCloseModal } = usePrintModal();
+  const {
+    state,
+    handleCloseModal,
+    handlePrint,
+    contactsValue,
+    commentValue,
+    setContactsValue,
+    setCommentValue,
+  } = usePrintModal();
 
   return (
     <>
@@ -27,23 +35,36 @@ const PrintModal = () => {
               >
                 <FontAwesomeIcon icon={faXmark} />
               </motion.button>
-              <motion.button className={styles.printbuton}>
+              <motion.button
+                className={styles.printbuton}
+                onClick={() => handlePrint()}
+              >
                 <FontAwesomeIcon icon={faPrint} />
                 <motion.span>Print</motion.span>
               </motion.button>
               <motion.div className={styles.textAreaContainer}>
                 <motion.div className={styles.textArea}>
-                  <TextArea placeholder="Contacts" label="Contacts" />
+                  <TextArea
+                    placeholder="Contacts"
+                    label="Contacts"
+                    value={contactsValue}
+                    onChange={(e) => setContactsValue(e.target.value)}
+                  />
                 </motion.div>
                 <motion.div className={styles.textArea}>
-                  <TextArea placeholder="Comment" label="Comment" />
+                  <TextArea
+                    placeholder="Comment"
+                    label="Comment"
+                    value={commentValue}
+                    onChange={(e) => setCommentValue(e.target.value)}
+                  />
                 </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-      <PrintSheet />
+      {/* <PrintSheet /> */}
     </>
   );
 };
