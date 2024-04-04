@@ -1,30 +1,12 @@
-import React, { useRef } from 'react';
-import styles from './PrintSheet.module.scss';
-import { useAppSelector } from '../../app/hooks';
+import React from 'react';
+import { usePrintSheet } from './usePrintSheet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import ReactToPrint from 'react-to-print';
+import styles from './PrintSheet.module.scss';
 
 const PrintSheet = () => {
-  const state = useAppSelector((state) => state.mainSlice);
-
-  const printRef = useRef(null);
-
-  const totalPriceInCategory = (categoryID: string) => {
-    const productsInCategory = state.history[
-      state.history.length - state.historyIndex
-    ].filter((product) => product.categoryId == categoryID);
-
-    const totalPriceInCategory = productsInCategory
-      .map((el) => el.price)
-      .reduce((acc, number) => acc + number, 0);
-
-    const totalQuantityInCategory = productsInCategory
-      .map((el) => el.quantity)
-      .reduce((acc, number) => acc + number, 0);
-
-    return totalPriceInCategory * totalQuantityInCategory;
-  };
+  const { state, printRef, totalPriceInCategory } = usePrintSheet();
 
   return (
     <>
