@@ -1,6 +1,11 @@
 import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setComment, setContacts, togglePrintModal } from '../../app/mainSlice';
+import {
+  setComment,
+  setContacts,
+  togglePrintModal,
+  togglePrintSheet,
+} from '../../app/mainSlice';
 
 export const usePrintModal = () => {
   const state = useAppSelector((state) => state.mainSlice);
@@ -8,7 +13,6 @@ export const usePrintModal = () => {
 
   const [contactsValue, setContactsValue] = useState<string>('');
   const [commentValue, setCommentValue] = useState<string>('');
-  const [showPrintSheet, setShowPrintSheet] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     dispatch(togglePrintModal(false));
@@ -17,7 +21,7 @@ export const usePrintModal = () => {
   const handlePrint = () => {
     dispatch(setContacts(contactsValue));
     dispatch(setComment(commentValue));
-    setShowPrintSheet(true);
+    dispatch(togglePrintSheet(true));
   };
 
   return {
@@ -28,6 +32,5 @@ export const usePrintModal = () => {
     commentValue,
     setContactsValue,
     setCommentValue,
-    showPrintSheet,
   };
 };

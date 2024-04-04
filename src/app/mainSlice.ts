@@ -23,6 +23,7 @@ export interface State {
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
+  togglePrintSheet: boolean;
   contacts: string;
   comment: string;
   loading: boolean;
@@ -37,6 +38,7 @@ const initialState: State = {
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
+  togglePrintSheet: false,
   contacts: '',
   comment: '',
   loading: false,
@@ -144,6 +146,9 @@ const mainSlice = createSlice({
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
+    togglePrintSheet(state, action) {
+      state.togglePrintSheet = action.payload;
+    },
     setContacts(state, action) {
       state.contacts = action.payload;
     },
@@ -176,6 +181,7 @@ export const {
   synchronizeIdexDb,
   getDataFromIndexDB,
   togglePrintModal,
+  togglePrintSheet,
   setComment,
   setContacts,
   setNextHistoryIndex,

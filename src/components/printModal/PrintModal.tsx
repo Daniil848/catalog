@@ -16,7 +16,6 @@ const PrintModal = () => {
     commentValue,
     setContactsValue,
     setCommentValue,
-    showPrintSheet,
   } = usePrintModal();
 
   return (
@@ -24,7 +23,7 @@ const PrintModal = () => {
       <AnimatePresence>
         {state.togglePrintModal && (
           <motion.div className={styles.wrapper}>
-            {showPrintSheet && <PrintSheet />}
+            <PrintSheet />
             <motion.div
               className={styles.form}
               initial={{ scale: 0, type: 'spring' }}
