@@ -29,25 +29,29 @@ export const useProductCard = () => {
   };
 
   const handleProductImage = (value: string, productId: string) => {
-    setProductImage(() => ({
+    setProductImage((pervProductImage) => ({
+      ...pervProductImage,
       [productId]: value,
     }));
   };
 
   const handleProductName = (value: string, productId: string) => {
-    setProductName(() => ({
+    setProductName((pervProductName) => ({
+      ...pervProductName,
       [productId]: value,
     }));
   };
 
   const handleProductPrice = (value: number, productId: string) => {
-    setProductPrice(() => ({
+    setProductPrice((pervProductPrice) => ({
+      ...pervProductPrice,
       [productId]: value,
     }));
   };
 
   const handleProductCount = (value: number, productId: string) => {
-    setProductCount(() => ({
+    setProductCount((pervProductCount) => ({
+      ...pervProductCount,
       [productId]: value,
     }));
   };
