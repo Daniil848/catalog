@@ -5,6 +5,7 @@ import { faPrint, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import TextArea from '../../UI/textArea/TextArea';
 import styles from './PrintModal.module.scss';
+import PrintSheet from '../printSheet/PrintSheet';
 
 const PrintModal = () => {
   const { state, handleCloseModal } = usePrintModal();
@@ -42,6 +43,7 @@ const PrintModal = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <PrintSheet />
     </>
   );
 };
