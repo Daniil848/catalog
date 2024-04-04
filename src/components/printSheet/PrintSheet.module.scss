@@ -1,0 +1,12 @@
+.wrapper {
+  @apply overflow-y-scroll z-50 fixed top-0 bottom-0 left-0 right-0 flex flex-col items-start justify-center;
+
+  .printbuton {
+    @apply fixed z-10 top-2 left-0 right-0 w-fit h-8 mx-auto rounded bg-teal-700 p-4 text-white flex items-center gap-2 hover:bg-slate-200 hover:text-teal-700 transition-colors;
+  }
+
+  .sheet {
+    @apply w-[210mm] h-[297mm] m-auto bg-white scale-90;
+    page-break-after: always;
+  }
+}

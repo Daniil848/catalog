@@ -3,9 +3,9 @@ import { usePrintModal } from './usePrintModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
+import PrintSheet from '../printSheet/PrintSheet';
 import TextArea from '../../UI/textArea/TextArea';
 import styles from './PrintModal.module.scss';
-import PrintSheet from '../printSheet/PrintSheet';
 
 const PrintModal = () => {
   const {
@@ -16,6 +16,7 @@ const PrintModal = () => {
     commentValue,
     setContactsValue,
     setCommentValue,
+    showPrintSheet,
   } = usePrintModal();
 
   return (
@@ -23,6 +24,7 @@ const PrintModal = () => {
       <AnimatePresence>
         {state.togglePrintModal && (
           <motion.div className={styles.wrapper}>
+            {showPrintSheet && <PrintSheet />}
             <motion.div
               className={styles.form}
               initial={{ scale: 0, type: 'spring' }}
@@ -64,7 +66,6 @@ const PrintModal = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* <PrintSheet /> */}
     </>
   );
 };
