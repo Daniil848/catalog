@@ -132,6 +132,7 @@ const mainSlice = createSlice({
 
       if (Array.isArray(products)) {
         state.products = products.map((product) => product);
+        state.history.push(state.products);
       } else {
         state.products = [];
       }
