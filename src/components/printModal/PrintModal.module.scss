@@ -21,3 +21,11 @@
     }
   }
 }
+@media print {
+  header {
+    @apply hidden;
+  }
+  .wrapper {
+    @apply hidden;
+  }
+}

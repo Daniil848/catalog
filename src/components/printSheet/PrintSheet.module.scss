@@ -1,8 +1,12 @@
 .sheet {
   display: none;
   width: 210mm;
-  height: 297mm;
   margin: 0 auto;
   background-color: white;
-  page-break-after: always;
+}
+
+@media print {
+  .sheet {
+    display: block;
+  }
 }

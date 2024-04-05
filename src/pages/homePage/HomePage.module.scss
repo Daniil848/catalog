@@ -35,3 +35,9 @@
     @apply flex flex-col gap-4;
   }
 }
+
+@media print {
+  .container {
+    @apply hidden;
+  }
+}

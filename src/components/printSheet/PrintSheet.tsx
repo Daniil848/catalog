@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePrintSheet } from './usePrintSheet';
 import styles from './PrintSheet.module.scss';
 
