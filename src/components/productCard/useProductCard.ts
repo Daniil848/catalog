@@ -63,8 +63,8 @@ export const useProductCard = () => {
           ...product,
           image: productImage[productId],
           title: productName[productId],
-          price: productPrice[productId],
-          quantity: productCount[productId],
+          price: productPrice[productId] ? productPrice[productId] : 0,
+          quantity: productCount[productId] ? productCount[productId] : 0,
         };
       }
       return product;

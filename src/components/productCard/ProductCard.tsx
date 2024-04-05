@@ -147,7 +147,7 @@ const ProductCard = (props: Props) => {
                         name={`${product.price}-${product.id}`}
                         label="Price"
                         placeholder="Price"
-                        value={productPrice[product.id] ?? product.price ?? ''}
+                        value={productPrice[product.id] ?? product.price ?? 0}
                         onChange={(e) =>
                           handleProductPrice(Number(e.target.value), product.id)
                         }
@@ -160,7 +160,7 @@ const ProductCard = (props: Props) => {
                         label="Count"
                         placeholder="Count"
                         value={
-                          productCount[product.id] ?? product.quantity ?? ''
+                          productCount[product.id] ?? product.quantity ?? 0
                         }
                         onChange={(e) =>
                           handleProductCount(Number(e.target.value), product.id)
