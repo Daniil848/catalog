@@ -1,51 +1,81 @@
-.wrapper {
-  @apply overflow-y-scroll z-50 fixed top-0 bottom-0 left-0 right-0 flex flex-col items-start justify-center;
-  size: A4;
+.sheet {
+  display: none;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  background-color: white;
+  page-break-after: always;
 
+  table {
+    width: auto;
+    margin: 1cm 2.5cm;
+    border-collapse: collapse;
+  }
+
+  caption {
+    text-align: left;
+    font-weight: bold;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid black;
+  }
+
+  th {
+    background-color: lightgray;
+  }
+
+  tbody td:last-child {
+    text-align: right;
+  }
+
+  tr:last-child {
+    font-weight: bold;
+  }
+}
+
+@media print {
   .printButon {
-    @apply absolute z-10 top-4 left-[450px] w-fit h-8 mx-auto p-4 rounded bg-white text-teal-700 flex items-center gap-2 hover:bg-slate-200 hover:text-teal-700 transition-colors;
+    display: none;
   }
 
   .closeButon {
-    @apply absolute top-2 right-[520px] text-white text-3xl;
+    display: none;
   }
 
   .sheet {
-    width: 210mm;
-    height: 297mm;
     margin: 0 auto;
-    padding: 1cm 2.5cm;
-    background-color: white;
-    page-break-after: always; // Разрыв страницы после текущего блока
+    page-break-after: always;
 
     table {
-      width: 100%;
+      overflow: hidden;
+      width: auto;
+      margin: 1cm 2.5cm;
       border-collapse: collapse;
-      margin-top: 20px;
+      page-break-after: always;
 
       caption {
         text-align: left;
         font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 10px;
       }
 
       th,
       td {
-        border: 1px solid #000;
         padding: 8px;
-        text-align: center;
+        border: 1px solid black;
       }
 
-      thead {
-        background-color: #f2f2f2;
+      th {
+        background-color: lightgray;
       }
 
-      tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
+      tbody td:last-child {
+        text-align: right;
       }
 
-      tbody tr:last-child {
+      tr:last-child {
         font-weight: bold;
       }
     }

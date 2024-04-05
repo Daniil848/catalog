@@ -1,36 +1,33 @@
 import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  setComment,
-  setContacts,
-  togglePrintModal,
-  togglePrintSheet,
-} from '../../app/mainSlice';
+import { togglePrintModal } from '../../app/mainSlice';
+import { useReactToPrint } from 'react-to-print';
 
 export const usePrintModal = () => {
   const state = useAppSelector((state) => state.mainSlice);
   const dispatch = useAppDispatch();
 
-  const [contactsValue, setContactsValue] = useState<string>('');
-  const [commentValue, setCommentValue] = useState<string>('');
+  const printRef = useRef(null);
+
+  const [contacts, setContacts] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
 
   const handleCloseModal = () => {
     dispatch(togglePrintModal(false));
   };
 
-  const handlePrint = () => {
-    dispatch(setContacts(contactsValue));
-    dispatch(setComment(commentValue));
-    dispatch(togglePrintSheet(true));
-  };
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+  });
 
   return {
     state,
+    printRef,
     handleCloseModal,
     handlePrint,
-    contactsValue,
-    commentValue,
-    setContactsValue,
-    setCommentValue,
+    contacts,
+    comment,
+    setContacts,
+    setComment,
   };
 };

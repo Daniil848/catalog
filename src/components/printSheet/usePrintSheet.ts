@@ -1,10 +1,7 @@
-import { useRef } from 'react';
 import { useAppSelector } from '../../app/hooks';
 
 export const usePrintSheet = () => {
   const state = useAppSelector((state) => state.mainSlice);
-
-  const printRef = useRef(null);
 
   const totalPriceInCategory = (categoryID: string) => {
     const productsInCategory = state.history[
@@ -24,7 +21,6 @@ export const usePrintSheet = () => {
 
   return {
     state,
-    printRef,
     totalPriceInCategory,
   };
 };

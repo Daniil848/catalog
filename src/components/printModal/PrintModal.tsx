@@ -10,12 +10,13 @@ import styles from './PrintModal.module.scss';
 const PrintModal = () => {
   const {
     state,
+    printRef,
     handleCloseModal,
     handlePrint,
-    contactsValue,
-    commentValue,
-    setContactsValue,
-    setCommentValue,
+    contacts,
+    comment,
+    setContacts,
+    setComment,
   } = usePrintModal();
 
   return (
@@ -23,7 +24,6 @@ const PrintModal = () => {
       <AnimatePresence>
         {state.togglePrintModal && (
           <motion.div className={styles.wrapper}>
-            <PrintSheet />
             <motion.div
               className={styles.form}
               initial={{ scale: 0, type: 'spring' }}
@@ -36,6 +36,7 @@ const PrintModal = () => {
               >
                 <FontAwesomeIcon icon={faXmark} />
               </motion.button>
+
               <motion.button
                 className={styles.printbuton}
                 onClick={() => handlePrint()}
@@ -43,28 +44,30 @@ const PrintModal = () => {
                 <FontAwesomeIcon icon={faPrint} />
                 <motion.span>Print</motion.span>
               </motion.button>
+
               <motion.div className={styles.textAreaContainer}>
                 <motion.div className={styles.textArea}>
                   <TextArea
                     placeholder="Contacts"
                     label="Contacts"
-                    value={contactsValue}
-                    onChange={(e) => setContactsValue(e.target.value)}
+                    value={contacts}
+                    onChange={(e) => setContacts(e.target.value)}
                   />
                 </motion.div>
                 <motion.div className={styles.textArea}>
                   <TextArea
                     placeholder="Comment"
                     label="Comment"
-                    value={commentValue}
-                    onChange={(e) => setCommentValue(e.target.value)}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                   />
                 </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>{' '}
+      <PrintSheet ref={printRef} comment={comment} contacts={comment} />
     </>
   );
 };
