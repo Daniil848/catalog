@@ -14,18 +14,28 @@ const PrintSheet = React.forwardRef((props: Props, ref: any) => {
   return (
     <>
       <div className={styles.sheet}>
-        <table ref={ref}>
-          <caption>
+        <table ref={ref} className="m-[2cm]">
+          <caption className="text-start p-4 border">
             <p>Contacts: {props.contacts}</p>
             <p>Comment: {props.comment}</p>
           </caption>
           <thead>
             <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Price</th>
+              <th className="w-fit p-4 text-center border bg-slate-100">
+                Image
+              </th>
+              <th className="w-fit p-4 text-center border bg-slate-100">
+                Name
+              </th>
+              <th className="w-fit p-4 text-center border bg-slate-100">
+                Category
+              </th>
+              <th className="w-fit p-4 text-center border bg-slate-100">
+                Quantity
+              </th>
+              <th className="w-fit p-4 text-center border bg-slate-100">
+                Price
+              </th>
             </tr>
           </thead>
           {state.categories.map((category) => (
@@ -34,14 +44,15 @@ const PrintSheet = React.forwardRef((props: Props, ref: any) => {
                 .filter((el) => el.categoryId == category.id)
                 .map((product) => (
                   <tr key={product.id}>
-                    <td>
-                      <img
-                        src={product.image}
-                        alt=""
-                        width="70"
-                        height="70"
-                        className="text-center border"
-                      />
+                    <td className="w-full min-h-[69px] p-4 border flex items-center justify-center">
+                      {product.image && (
+                        <img
+                          src={product.image}
+                          alt=""
+                          width="70"
+                          height="70"
+                        />
+                      )}
                     </td>
                     <td className="w-fit p-4 text-center border">
                       {product.title}
@@ -57,11 +68,16 @@ const PrintSheet = React.forwardRef((props: Props, ref: any) => {
                     </td>
                   </tr>
                 ))}
-              <tr>
-                <td>{category.name} total:</td>
-                <td></td>
-                <td></td>
-                <td>${totalPriceInCategory(category.id).toFixed(2)}</td>
+              <tr className="border border-gray-200">
+                <td className="w-fit p-4 text-center font-semibold">
+                  {category.name} total:
+                </td>
+                <td className="w-fit p-4 text-center"></td>
+                <td className="w-fit p-4 text-center"></td>
+                <td className="w-fit p-4 text-center"></td>
+                <td className="w-fit p-4 text-center font-semibold">
+                  ${totalPriceInCategory(category.id).toFixed(2)}
+                </td>
               </tr>
             </tbody>
           ))}
