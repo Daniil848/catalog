@@ -21,6 +21,7 @@ const PrintSheet = React.forwardRef((props: Props, ref: any) => {
           </caption>
           <thead>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Category</th>
               <th>Quantity</th>
@@ -33,10 +34,27 @@ const PrintSheet = React.forwardRef((props: Props, ref: any) => {
                 .filter((el) => el.categoryId == category.id)
                 .map((product) => (
                   <tr key={product.id}>
-                    <td>{product.title}</td>
-                    <td>{category.name}</td>
-                    <td>{product.quantity}</td>
-                    <td>{product.price}</td>
+                    <td>
+                      <img
+                        src={product.image}
+                        alt=""
+                        width="70"
+                        height="70"
+                        className="text-center border"
+                      />
+                    </td>
+                    <td className="w-fit p-4 text-center border">
+                      {product.title}
+                    </td>
+                    <td className="w-fit p-4 text-center border">
+                      {category.name}
+                    </td>
+                    <td className="w-fit p-4 text-center border">
+                      {product.quantity}
+                    </td>
+                    <td className="w-fit p-4 text-center border">
+                      {product.price}
+                    </td>
                   </tr>
                 ))}
               <tr>
