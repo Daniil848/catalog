@@ -4,7 +4,10 @@ import {
   Category,
   editCategory,
   getDataFromIndexDB,
+  moveProduct,
 } from '../../app/mainSlice';
+import { DragEndEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 
 interface Accordion {
   [key: string]: boolean;
@@ -17,6 +20,9 @@ export const useHomePage = () => {
   const [accordion, setAccordion] = useState<Accordion>({});
   const [isEditCategory, setIsEditCategory] = useState<string>('');
   const [categoryName, setCategoryName] = useState<string>('');
+  const [items, setItems] = useState(
+    state.history[state.history.length - state.historyIndex],
+  );
 
   useEffect(() => {
     dispatch(getDataFromIndexDB());
@@ -45,6 +51,28 @@ export const useHomePage = () => {
     setIsEditCategory('');
   };
 
+  function dragEndEvent(e: DragEndEvent) {
+    const { over, active } = e;
+
+    const draggedProduct = state.history[
+      state.history.length - state.historyIndex
+    ].find((product) => product.id === active.id);
+    const overProduct = state.history[
+      state.history.length - state.historyIndex
+    ].find((product) => product.id === over?.id);
+
+    if (draggedProduct && overProduct) {
+      setItems((items) => {
+        return arrayMove(
+          items,
+          items.indexOf(draggedProduct),
+          items.indexOf(overProduct),
+        );
+      });
+    }
+    dispatch(moveProduct(items));
+  }
+
   return {
     state,
     dispatch,
@@ -55,5 +83,6 @@ export const useHomePage = () => {
     categoryName,
     handleEditCategory,
     setCategoryName,
+    dragEndEvent,
   };
 };

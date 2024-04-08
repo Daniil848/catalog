@@ -83,6 +83,9 @@ const mainSlice = createSlice({
       state.history.push(state.products);
       toast.success('Product deleted!');
     },
+    moveProduct(state, action) {
+      state.products = action.payload;
+    },
     //=============================CATEGORIES ACTIONS=============================
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
@@ -160,6 +163,7 @@ export const {
   setProductsToAdd,
   updateProductsToAdd,
   deleteProduct,
+  moveProduct,
   setIsAddCategory,
   addCategory,
   editCategory,
