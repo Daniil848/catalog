@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteProduct, updateProductsToAdd } from '../../app/mainSlice';
+import {
+  Product,
+  deleteProduct,
+  setDeletedProducts,
+  updateProductsToAdd,
+} from '../../app/mainSlice';
 import toast from 'react-hot-toast';
 
 export const useProductCard = () => {
@@ -76,8 +81,9 @@ export const useProductCard = () => {
     toast.success('Product changed!');
   };
 
-  const handleDeleteProduct = (productId: string) => {
-    dispatch(deleteProduct(productId));
+  const handleDeleteProduct = (product: Product) => {
+    dispatch(setDeletedProducts(product));
+    dispatch(deleteProduct(product.id));
   };
 
   return {

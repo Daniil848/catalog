@@ -6,8 +6,6 @@ export const useHeader = () => {
   const state = useAppSelector((state) => state.mainSlice);
   const dispatch = useAppDispatch();
 
-  console.log(state.historyIndex);
-
   const handleOpenModal = () => {
     dispatch(togglePrintModal(true));
   };

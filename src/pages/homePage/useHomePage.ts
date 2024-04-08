@@ -4,7 +4,6 @@ import {
   Category,
   editCategory,
   getDataFromIndexDB,
-  moveProduct,
 } from '../../app/mainSlice';
 
 interface Accordion {

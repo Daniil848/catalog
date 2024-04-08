@@ -18,7 +18,6 @@ interface Props {
 
 const ProductCard = (props: Props) => {
   const {
-    state,
     handleProductName,
     productImage,
     productName,
@@ -81,7 +80,7 @@ const ProductCard = (props: Props) => {
               </motion.button>
               <motion.button
                 className={styles.productChangeButtonDelete}
-                onClick={() => handleDeleteProduct(props.product.id)}
+                onClick={() => handleDeleteProduct(props.product)}
               >
                 <FontAwesomeIcon icon={faTrash} />
               </motion.button>
@@ -188,7 +187,7 @@ const ProductCard = (props: Props) => {
               </motion.button>
               <motion.button
                 className={styles.changeButtonsDelete}
-                onClick={() => handleDeleteProduct(props.product.id)}
+                onClick={() => handleDeleteProduct(props.product)}
               >
                 <FontAwesomeIcon icon={faTrash} />
               </motion.button>

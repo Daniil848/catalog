@@ -23,6 +23,7 @@ export interface State {
   isAddCategory: boolean;
   isProductsChange: boolean;
   togglePrintModal: boolean;
+  deletedProducts: Product[];
   loading: boolean;
   error: boolean;
 }
@@ -35,6 +36,7 @@ const initialState: State = {
   isAddCategory: false,
   isProductsChange: false,
   togglePrintModal: false,
+  deletedProducts: [],
   loading: false,
   error: false,
 };
@@ -85,6 +87,16 @@ const mainSlice = createSlice({
     },
     moveProduct(state, action) {
       state.products = action.payload;
+    },
+    setDeletedProducts(state, action) {
+      if (
+        action.payload.title &&
+        action.payload.image &&
+        action.payload.price &&
+        action.payload.quantity
+      ) {
+        state.deletedProducts = [...state.deletedProducts, action.payload];
+      }
     },
     //=============================CATEGORIES ACTIONS=============================
     setIsAddCategory(state, action) {
@@ -164,6 +176,7 @@ export const {
   updateProductsToAdd,
   deleteProduct,
   moveProduct,
+  setDeletedProducts,
   setIsAddCategory,
   addCategory,
   editCategory,
