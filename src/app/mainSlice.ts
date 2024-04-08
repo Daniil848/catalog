@@ -138,23 +138,38 @@ const mainSlice = createSlice({
     synchronizeIdexDb(state) {
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('categories', JSON.stringify(state.categories));
+      localStorage.setItem(
+        'deletedProducts',
+        JSON.stringify(state.deletedProducts),
+      );
       toast.success('Synchronized!');
     },
     getDataFromIndexDB(state) {
       const categories = JSON.parse(localStorage.getItem('categories') || '{}');
       const products = JSON.parse(localStorage.getItem('products') || '{}');
+      const deletedProducts = JSON.parse(
+        localStorage.getItem('deletedProducts') || '{}',
+      );
 
       if (Array.isArray(categories)) {
-        state.categories = categories.map((category) => category);
+        state.categories = categories.map((category: Category) => category);
       } else {
         state.categories = [];
       }
 
       if (Array.isArray(products)) {
-        state.products = products.map((product) => product);
+        state.products = products.map((product: Product) => product);
         state.history.push(state.products);
       } else {
         state.products = [];
+      }
+
+      if (Array.isArray(deletedProducts)) {
+        state.deletedProducts = deletedProducts.map(
+          (product: Product) => product,
+        );
+      } else {
+        state.deletedProducts = [];
       }
     },
     //=============================PRINT ACTIONS=============================
