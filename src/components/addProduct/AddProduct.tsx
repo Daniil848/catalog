@@ -6,7 +6,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimatePresence, motion } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import styles from './AddProduct.module.scss';
-import { delay } from '@reduxjs/toolkit/dist/utils';
 
 interface Props {
   categoryId: string;

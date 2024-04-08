@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { synchronizeIdexDb, togglePrintModal } from '../../app/mainSlice';
 
