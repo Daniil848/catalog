@@ -1,11 +1,27 @@
-.addProduct {
-  @apply flex items-center justify-center h-[100px] border border-slate-300 rounded;
+.container {
+  @apply w-full flex gap-4;
 
-  .addProductButton {
-    @apply w-16 h-16 rounded-full bg-teal-700 hover:bg-slate-200 text-white hover:text-teal-700 transition-colors;
+  .addProduct {
+    @apply relative w-1/2 flex items-center justify-center h-[100px] border border-slate-300 rounded;
 
-    .addProductIcon {
-      @apply text-3xl font-bold;
+    .addProductButton {
+      @apply w-fit p-2 h-fit flex items-center justify-between gap-2 rounded bg-teal-700 hover:bg-slate-200 text-white hover:text-teal-700 transition-colors;
+
+      .addProductIcon {
+        @apply text-xl font-bold;
+      }
+    }
+
+    .deletedProducts {
+      @apply absolute z-10 top-[80%] w-20 h-fit flex flex-col bg-white border border-slate-300 px-2 rounded;
+
+      .deletedProduct {
+        @apply relative border-b border-slate-300 p-2 bg-white hover:bg-slate-100 transition-colors;
+      }
+
+      .deletedProduct:last-child {
+        @apply border-none;
+      }
     }
   }
 }

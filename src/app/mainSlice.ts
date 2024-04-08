@@ -89,13 +89,18 @@ const mainSlice = createSlice({
       state.products = action.payload;
     },
     setDeletedProducts(state, action) {
+      const isProductDeleted = state.deletedProducts.find(
+        (i) => i.id === action.payload.id,
+      );
+
       if (
         action.payload.title &&
         action.payload.image &&
         action.payload.price &&
-        action.payload.quantity
+        action.payload.quantity &&
+        !isProductDeleted
       ) {
-        state.deletedProducts = [...state.deletedProducts, action.payload];
+        state.deletedProducts.push(action.payload);
       }
     },
     //=============================CATEGORIES ACTIONS=============================
