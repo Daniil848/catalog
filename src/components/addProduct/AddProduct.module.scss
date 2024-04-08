@@ -13,10 +13,10 @@
     }
 
     .deletedProducts {
-      @apply absolute z-10 top-[80%] w-20 h-fit flex flex-col bg-white border border-slate-300 px-2 rounded;
+      @apply absolute z-10 top-[80%] w-40 h-fit flex flex-col bg-white border border-slate-300 px-2 rounded;
 
       .deletedProduct {
-        @apply relative border-b border-slate-300 p-2 bg-white hover:bg-slate-100 transition-colors;
+        @apply border-b border-slate-300 p-2 bg-white hover:bg-slate-100 transition-colors;
       }
 
       .deletedProduct:last-child {
