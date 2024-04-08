@@ -8,8 +8,6 @@ import ProductCard from '../../components/productCard/ProductCard';
 import AddProduct from '../../components/addProduct/AddProduct';
 import AddCategory from '../../components/addCategory/AddCategory';
 import styles from './HomePage.module.scss';
-import { DndContext } from '@dnd-kit/core';
-import { SortableContext } from '@dnd-kit/sortable';
 
 const HomePage = () => {
   const {
@@ -22,7 +20,6 @@ const HomePage = () => {
     categoryName,
     setCategoryName,
     handleEditCategory,
-    dragEndEvent,
   } = useHomePage();
 
   console.log('historys', state.history);
@@ -98,23 +95,11 @@ const HomePage = () => {
                 >
                   <motion.div className={styles.products}>
                     <AddProduct categoryId={category.id} />
-                    <DndContext onDragEnd={dragEndEvent}>
-                      <SortableContext
-                        items={
-                          state.history[
-                            state.history.length - state.historyIndex
-                          ]
-                        }
-                      >
-                        {state.history[
-                          state.history.length - state.historyIndex
-                        ]
-                          .filter((i) => i.categoryId == category.id)
-                          .map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                          ))}
-                      </SortableContext>
-                    </DndContext>
+                    {state.history[state.history.length - state.historyIndex]
+                      .filter((i) => i.categoryId == category.id)
+                      .map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
                   </motion.div>
                 </motion.div>
               )}

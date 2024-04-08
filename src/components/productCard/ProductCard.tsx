@@ -10,7 +10,6 @@ import {
 import { motion } from 'framer-motion';
 import styles from './ProductCard.module.scss';
 import Input from '../../UI/input/Input';
-import { useSortable } from '@dnd-kit/sortable';
 import { Product } from '../../app/mainSlice';
 
 interface Props {
@@ -35,26 +34,16 @@ const ProductCard = (props: Props) => {
     handleDeleteProduct,
   } = useProductCard();
 
-  const { setNodeRef, listeners, transform, transition } = useSortable({
-    id: props.product.id,
-  });
-
   return (
     <>
-      <motion.div
-        ref={setNodeRef}
-        style={{
-          transform: transform ? `${transform}` : undefined,
-          transition,
-        }}
-        {...listeners}
-        className={styles.product}
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: 'auto', opacity: 1 }}
-        exit={{ width: 0, opacity: 0 }}
-      >
+      <motion.div>
         {!isEditProduct[props.product.id] ? (
-          <>
+          <motion.div
+            className={styles.product}
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: 'auto', opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+          >
             <motion.div className={styles.productImageContainer}>
               {props.product.image ? (
                 <motion.img
@@ -97,7 +86,7 @@ const ProductCard = (props: Props) => {
                 <FontAwesomeIcon icon={faTrash} />
               </motion.button>
             </motion.div>
-          </>
+          </motion.div>
         ) : (
           <motion.div
             className={styles.addProductForm}
