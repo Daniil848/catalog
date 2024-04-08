@@ -11,11 +11,13 @@ export const useFooter = () => {
   };
 
   const totalPrice = () => {
-    const totalPrice = state.products
+    const totalPrice = state.history[state.history.length - state.historyIndex]
       .map((el) => el.price)
       .reduce((acc, number) => acc + number, 0);
 
-    const totalQuantity = state.products
+    const totalQuantity = state.history[
+      state.history.length - state.historyIndex
+    ]
       .map((el) => el.quantity)
       .reduce((acc, number) => acc + number, 0);
 
