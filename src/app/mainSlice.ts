@@ -98,7 +98,18 @@ const mainSlice = createSlice({
       toast.success('Product deleted!');
     },
     moveProduct(state, action) {
-      state.products = action.payload;
+      const { oldIndex, newIndex } = action.payload;
+      const itemToMove = state.products[oldIndex];
+      const updatedProducts = state.products.filter(
+        (product, index) => index !== oldIndex,
+      );
+
+      // Вставляем перемещаемый элемент на новую позицию
+      updatedProducts.splice(newIndex, 0, itemToMove);
+
+      // Обновляем state.products новым массивом
+      state.products = updatedProducts;
+      state.history.push([...state.products]);
     },
     setDeletedProducts(state, action) {
       const isProductDeleted = state.deletedProducts.find(

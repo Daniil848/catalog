@@ -7,10 +7,16 @@ import {
   faEdit,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
+import {
+  Reorder,
+  motion,
+  useDragControls,
+  useMotionValue,
+} from 'framer-motion';
 import styles from './ProductCard.module.scss';
 import Input from '../../UI/input/Input';
 import { Product } from '../../app/mainSlice';
+import ReorderIcon from './ReorderIcon';
 
 interface Props {
   product: Product;
@@ -33,9 +39,13 @@ const ProductCard = (props: Props) => {
     handleDeleteProduct,
   } = useProductCard();
 
+  const y = useMotionValue(0);
+  const dragControls = useDragControls();
+
   return (
     <>
-      <motion.div>
+      <Reorder.Item value={props.product} id={props.product.id} style={{ y }}>
+        <ReorderIcon dragControls={dragControls} />
         {!isEditProduct[props.product.id] ? (
           <motion.div
             className={styles.product}
@@ -194,7 +204,7 @@ const ProductCard = (props: Props) => {
             </motion.div>
           </motion.div>
         )}
-      </motion.div>
+      </Reorder.Item>
     </>
   );
 };

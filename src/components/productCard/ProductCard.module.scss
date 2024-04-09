@@ -15,7 +15,7 @@
 }
 
 .product {
-  @apply flex relative h-[100px] border border-slate-300 rounded p-4;
+  @apply flex relative h-[100px] border border-slate-300 rounded p-4 bg-white;
 
   .productChangeButtons {
     @apply flex flex-col gap-2 ml-4;
