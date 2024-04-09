@@ -67,7 +67,7 @@
 }
 
 .addProductForm {
-  @apply relative flex p-4 h-[100px] border border-slate-300 rounded;
+  @apply relative flex p-4 h-[100px] border border-slate-300 rounded bg-white;
 
   .productUploadContainer {
     @apply flex items-center justify-center mr-4 relative min-w-[100px] h-[68px] bg-slate-100 rounded;
