@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   Category,
+  Product,
   editCategory,
   getDataFromIndexDB,
+  reorderProducts,
 } from '../../app/mainSlice';
 
 interface Accordion {
@@ -17,6 +19,20 @@ export const useHomePage = () => {
   const [accordion, setAccordion] = useState<Accordion>({});
   const [isEditCategory, setIsEditCategory] = useState<string>('');
   const [categoryName, setCategoryName] = useState<string>('');
+
+  const [items, setItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setItems(state.history[state.history.length - state.historyIndex]);
+  }, [state.history]);
+
+  useEffect(() => {
+    dispatch(reorderProducts(items));
+  }, [items]);
+
+  const handleReorder = (reorderedItems: Product[]) => {
+    setItems(reorderedItems);
+  };
 
   useEffect(() => {
     dispatch(getDataFromIndexDB());
@@ -55,5 +71,7 @@ export const useHomePage = () => {
     categoryName,
     handleEditCategory,
     setCategoryName,
+    items,
+    handleReorder,
   };
 };

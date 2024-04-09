@@ -112,6 +112,11 @@ const mainSlice = createSlice({
         state.deletedProducts.push(action.payload);
       }
     },
+    reorderProducts(state, action) {
+      state.products = action.payload;
+      state.history.push(state.products);
+      state.historyIndex = initialState.historyIndex;
+    },
     //=============================CATEGORIES ACTIONS=============================
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
@@ -207,6 +212,7 @@ export const {
   updateProductsToAdd,
   deleteProduct,
   setDeletedProducts,
+  reorderProducts,
   setIsAddCategory,
   addCategory,
   editCategory,
