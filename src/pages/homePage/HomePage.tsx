@@ -20,7 +20,6 @@ const HomePage = () => {
     categoryName,
     setCategoryName,
     handleEditCategory,
-    handleReorder,
   } = useHomePage();
 
   console.log('history', state.history);
@@ -98,17 +97,11 @@ const HomePage = () => {
                 >
                   <motion.div className={styles.products}>
                     <AddProduct categoryId={category.id} />
-                    <Reorder.Group
-                      axis="y"
-                      onReorder={handleReorder}
-                      values={state.products}
-                    >
-                      {state.history[state.history.length - state.historyIndex]
-                        .filter((i) => i.categoryId == category.id)
-                        .map((product) => (
-                          <ProductCard key={product.id} product={product} />
-                        ))}
-                    </Reorder.Group>
+                    {state.history[state.history.length - state.historyIndex]
+                      .filter((i) => i.categoryId == category.id)
+                      .map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
                   </motion.div>
                 </motion.div>
               )}
