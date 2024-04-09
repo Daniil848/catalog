@@ -71,18 +71,30 @@ const mainSlice = createSlice({
   reducers: {
     //=============================PRODUCTS ACTIONS=============================
     setProductsToAdd(state, action) {
+      const index = state.history.length - state.historyIndex;
+
       state.products.push(action.payload);
+      state.history.splice(index + 1);
       state.history.push(state.products);
+      state.historyIndex = initialState.historyIndex;
     },
     updateProductsToAdd(state, action) {
+      const index = state.history.length - state.historyIndex;
+
       state.products = action.payload;
+      state.history.splice(index + 1);
       state.history.push(state.products);
+      state.historyIndex = initialState.historyIndex;
     },
     deleteProduct(state, action) {
+      const index = state.history.length - state.historyIndex;
+
       state.products = state.products.filter((product) => {
         return product.id !== action.payload;
       });
+      state.history.splice(index + 1);
       state.history.push(state.products);
+      state.historyIndex = initialState.historyIndex;
       toast.success('Product deleted!');
     },
     moveProduct(state, action) {
@@ -157,7 +169,7 @@ const mainSlice = createSlice({
         state.categories = [];
       }
 
-      if (Array.isArray(products)) {
+      if (Array.isArray(products) && products.length !== 0) {
         state.products = products.map((product: Product) => product);
         state.history.push(state.products);
       } else {
@@ -180,10 +192,12 @@ const mainSlice = createSlice({
     setPervHistoryIndex(state) {
       if (state.historyIndex >= state.history.length) return;
       state.historyIndex++;
+      state.products = state.history[state.history.length - state.historyIndex];
     },
     setNextHistoryIndex(state) {
       if (state.historyIndex <= 1) return;
       state.historyIndex--;
+      state.products = state.history[state.history.length - state.historyIndex];
     },
   },
   extraReducers: (builder) => {

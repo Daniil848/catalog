@@ -22,6 +22,9 @@ const HomePage = () => {
     handleEditCategory,
   } = useHomePage();
 
+  console.log('history', state.history);
+  console.log('products', state.products);
+
   return (
     <>
       <motion.div className={styles.container}>
