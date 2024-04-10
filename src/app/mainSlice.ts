@@ -126,7 +126,15 @@ const mainSlice = createSlice({
       state.isAddCategory = action.payload;
     },
     addCategory(state, action) {
+      const index = state.history.length - state.historyIndex;
+
       state.categories.push(action.payload);
+      state.history.splice(index + 1);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
+      state.historyIndex = initialState.historyIndex;
       toast.success('Category added!');
     },
     editCategory(state, action) {
@@ -138,18 +146,34 @@ const mainSlice = createSlice({
             name: action.payload.name,
           };
         } else {
-          toast.error('Error!');
           return category;
         }
       });
+
+      const index = state.history.length - state.historyIndex;
+      state.history.splice(index + 1);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
+      state.historyIndex = initialState.historyIndex;
     },
     deleteCategory(state, action) {
+      const index = state.history.length - state.historyIndex;
+
       state.categories = state.categories.filter((category) => {
         return category.id !== action.payload.id;
       });
       state.products = state.products.filter((product) => {
         return product.categoryId !== action.payload.id;
       });
+
+      state.history.splice(index + 1);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
+      state.historyIndex = initialState.historyIndex;
       toast.success('Category deleted!');
     },
     //=============================INDEXDB ACTIONS=============================
@@ -201,14 +225,22 @@ const mainSlice = createSlice({
     setPervHistoryIndex(state) {
       if (state.historyIndex >= state.history.length) return;
       state.historyIndex++;
+
       state.products =
         state.history[state.history.length - state.historyIndex].products;
+
+      state.categories =
+        state.history[state.history.length - state.historyIndex].categories;
     },
     setNextHistoryIndex(state) {
       if (state.historyIndex <= 1) return;
       state.historyIndex--;
+
       state.products =
         state.history[state.history.length - state.historyIndex].products;
+
+      state.categories =
+        state.history[state.history.length - state.historyIndex].categories;
     },
   },
   extraReducers: (builder) => {

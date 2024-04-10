@@ -29,7 +29,9 @@ const HomePage = () => {
   return (
     <>
       <motion.div className={styles.container}>
-        {state.categories.map((category) => (
+        {state.history[
+          state.history.length - state.historyIndex
+        ].categories.map((category) => (
           <motion.div key={category.id}>
             <motion.div
               className={styles.category}
