@@ -14,108 +14,119 @@
   }
 }
 
-.product {
-  @apply flex relative h-[100px] border border-slate-300 rounded p-4 bg-white;
-
-  .productChangeButtons {
-    @apply flex flex-col gap-2 ml-4;
-
-    .productChangeButtonEdit {
-      @include changeButton;
-      @apply text-teal-700;
-    }
-
-    .productChangeButtonDelete {
-      @include changeButton;
-      @apply text-red-700;
-    }
-  }
-
-  .productImageContainer {
-    @include productImage;
-  }
-
-  .productInfo {
-    @apply flex flex-col h-full w-full;
-
-    .productTitle {
-      @apply flex-grow h-1/2;
-    }
-
-    .wrapper {
-      @apply flex items-end gap-4 h-1/2;
-
-      .productPrice {
-        @apply font-medium;
-
-        span {
-          @include productValues;
-          @apply bg-teal-700 min-w-5;
-        }
-      }
-
-      .productQuantity {
-        @apply font-medium;
-
-        span {
-          @include productValues;
-          @apply bg-slate-400;
-        }
-      }
-    }
-  }
+.reorderItem:last-child {
+  @apply mb-0;
 }
 
-.addProductForm {
-  @apply relative flex p-4 h-[100px] border border-slate-300 rounded bg-white;
+.reorderItem {
+  @apply relative mb-4;
 
-  .productUploadContainer {
-    @apply flex items-center justify-center mr-4 relative min-w-[100px] h-[68px] bg-slate-100 rounded;
-
-    .productUploadIcon {
-      @apply text-3xl text-teal-700;
-    }
-
-    input[type='file'] {
-      cursor: pointer;
-      position: absolute;
-      opacity: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+  .reorderIcon {
+    @apply absolute left-[-20px] top-[2px] text-teal-700 text-lg cursor-grabbing;
   }
+  .product {
+    @apply flex relative h-[100px] border border-slate-300 rounded p-4 bg-white;
 
-  .productImageContainer {
-    @include productImage;
-  }
+    .productChangeButtons {
+      @apply flex flex-col gap-2 ml-4;
 
-  .productInfo {
-    @apply flex items-end justify-start gap-4 w-full;
+      .productChangeButtonEdit {
+        @include changeButton;
+        @apply text-teal-700;
+      }
 
-    .productNameInput {
-      @apply w-1/2;
+      .productChangeButtonDelete {
+        @include changeButton;
+        @apply text-red-700;
+      }
     }
 
-    .wrapper {
-      @apply flex items-center justify-between gap-4 w-1/2;
+    .productImageContainer {
+      @include productImage;
+    }
 
-      .productInput {
-        @apply w-full;
+    .productInfo {
+      @apply flex flex-col h-full w-full;
+
+      .productTitle {
+        @apply flex-grow h-1/2;
+      }
+
+      .wrapper {
+        @apply flex items-end gap-4 h-1/2;
+
+        .productPrice {
+          @apply font-medium;
+
+          span {
+            @include productValues;
+            @apply bg-teal-700 min-w-5;
+          }
+        }
+
+        .productQuantity {
+          @apply font-medium;
+
+          span {
+            @include productValues;
+            @apply bg-slate-400;
+          }
+        }
       }
     }
   }
-  .changeButtons {
-    @apply flex flex-col gap-2 ml-4;
 
-    .changeButtonsEdit {
-      @include changeButton;
-      @apply text-teal-700;
+  .addProductForm {
+    @apply relative flex p-4 h-[100px] border border-slate-300 rounded bg-white;
+
+    .productUploadContainer {
+      @apply flex items-center justify-center mr-4 relative min-w-[100px] h-[68px] bg-slate-100 rounded;
+
+      .productUploadIcon {
+        @apply text-3xl text-teal-700;
+      }
+
+      input[type='file'] {
+        cursor: pointer;
+        position: absolute;
+        opacity: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
 
-    .changeButtonsDelete {
-      @include changeButton;
-      @apply text-red-700;
+    .productImageContainer {
+      @include productImage;
+    }
+
+    .productInfo {
+      @apply flex items-end justify-start gap-4 w-full;
+
+      .productNameInput {
+        @apply w-1/2;
+      }
+
+      .wrapper {
+        @apply flex items-center justify-between gap-4 w-1/2;
+
+        .productInput {
+          @apply w-full;
+        }
+      }
+    }
+    .changeButtons {
+      @apply flex flex-col gap-2 ml-4;
+
+      .changeButtonsEdit {
+        @include changeButton;
+        @apply text-teal-700;
+      }
+
+      .changeButtonsDelete {
+        @include changeButton;
+        @apply text-red-700;
+      }
     }
   }
 }

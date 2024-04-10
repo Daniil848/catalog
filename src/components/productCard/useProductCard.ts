@@ -7,6 +7,7 @@ import {
   updateProductsToAdd,
 } from '../../app/mainSlice';
 import toast from 'react-hot-toast';
+import { useDragControls } from 'framer-motion';
 
 export const useProductCard = () => {
   const state = useAppSelector((state) => state.mainSlice);
@@ -25,6 +26,8 @@ export const useProductCard = () => {
   const [productCount, setProductCount] = useState<{ [key: string]: number }>(
     {},
   );
+
+  const controls = useDragControls();
 
   const handleSwitchEditProduct = (productId: string) => {
     setIsEditProduct((prevState) => ({
@@ -101,5 +104,6 @@ export const useProductCard = () => {
     isEditProduct,
     handleSwitchEditProduct,
     handleDeleteProduct,
+    controls,
   };
 };

@@ -108,13 +108,7 @@ const HomePage = () => {
                       {state.history[state.history.length - state.historyIndex]
                         .filter((i) => i.categoryId == category.id)
                         .map((product) => (
-                          <Reorder.Item
-                            key={product.id}
-                            value={product}
-                            className={styles.reorderItem}
-                          >
-                            <ProductCard product={product} />
-                          </Reorder.Item>
+                          <ProductCard key={product.id} product={product} />
                         ))}
                     </Reorder.Group>
                   </motion.div>

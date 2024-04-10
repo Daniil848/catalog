@@ -33,14 +33,6 @@
 
   .products {
     @apply flex flex-col gap-4;
-
-    .reorderItem {
-      @apply mb-4;
-    }
-
-    .reorderItem:last-child {
-      @apply mb-0;
-    }
   }
 }
 
