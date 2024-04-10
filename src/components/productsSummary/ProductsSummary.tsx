@@ -35,7 +35,9 @@ const ProductsSummary = () => {
             </motion.thead>
             {state.categories.map((category) => (
               <motion.tbody key={category.id} className={styles.summaryBody}>
-                {state.history[state.history.length - state.historyIndex]
+                {state.history[
+                  state.history.length - state.historyIndex
+                ].products
                   .filter((el) => el.categoryId == category.id)
                   .map((product) => (
                     <motion.tr

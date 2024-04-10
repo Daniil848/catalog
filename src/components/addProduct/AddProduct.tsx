@@ -59,7 +59,7 @@ const AddProduct = (props: Props) => {
                 {state.deletedProducts.map((el) => {
                   const isProductInState = state.history[
                     state.history.length - state.historyIndex
-                  ].find((i) => i.id === el.id);
+                  ].products.find((i) => i.id === el.id);
 
                   if (!isProductInState) {
                     return (

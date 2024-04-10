@@ -103,9 +103,12 @@ const HomePage = () => {
                       onReorder={handleReorder}
                       values={
                         state.history[state.history.length - state.historyIndex]
+                          .products
                       }
                     >
-                      {state.history[state.history.length - state.historyIndex]
+                      {state.history[
+                        state.history.length - state.historyIndex
+                      ].products
                         .filter((i) => i.categoryId == category.id)
                         .map((product) => (
                           <ProductCard key={product.id} product={product} />

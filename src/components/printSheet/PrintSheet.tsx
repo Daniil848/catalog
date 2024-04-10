@@ -41,7 +41,9 @@ const PrintSheet = React.forwardRef(
             </thead>
             {state.categories.map((category) => (
               <tbody key={category.id}>
-                {state.history[state.history.length - state.historyIndex]
+                {state.history[
+                  state.history.length - state.historyIndex
+                ].products
                   .filter((el) => el.categoryId == category.id)
                   .map((product) => (
                     <tr key={product.id}>

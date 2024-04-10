@@ -18,7 +18,7 @@ export interface Product {
 export interface State {
   categories: Category[];
   products: Product[];
-  history: [Product[]];
+  history: { products: Product[]; categories: Category[] }[];
   historyIndex: number;
   isAddCategory: boolean;
   isProductsChange: boolean;
@@ -31,7 +31,7 @@ export interface State {
 const initialState: State = {
   categories: [],
   products: [],
-  history: [[]],
+  history: [{ products: [], categories: [] }],
   historyIndex: 1,
   isAddCategory: false,
   isProductsChange: false,
@@ -75,7 +75,10 @@ const mainSlice = createSlice({
 
       state.products.push(action.payload);
       state.history.splice(index + 1);
-      state.history.push(state.products);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
       state.historyIndex = initialState.historyIndex;
     },
     updateProductsToAdd(state, action) {
@@ -83,7 +86,10 @@ const mainSlice = createSlice({
 
       state.products = action.payload;
       state.history.splice(index + 1);
-      state.history.push(state.products);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
       state.historyIndex = initialState.historyIndex;
     },
     deleteProduct(state, action) {
@@ -93,7 +99,10 @@ const mainSlice = createSlice({
         return product.id !== action.payload;
       });
       state.history.splice(index + 1);
-      state.history.push(state.products);
+      state.history.push({
+        products: state.products,
+        categories: state.categories,
+      });
       state.historyIndex = initialState.historyIndex;
       toast.success('Product deleted!');
     },
@@ -168,7 +177,10 @@ const mainSlice = createSlice({
 
       if (Array.isArray(products) && products.length !== 0) {
         state.products = products.map((product: Product) => product);
-        state.history.push(state.products);
+        state.history.push({
+          products: state.products,
+          categories: state.categories,
+        });
       } else {
         state.products = [];
       }
@@ -189,12 +201,14 @@ const mainSlice = createSlice({
     setPervHistoryIndex(state) {
       if (state.historyIndex >= state.history.length) return;
       state.historyIndex++;
-      state.products = state.history[state.history.length - state.historyIndex];
+      state.products =
+        state.history[state.history.length - state.historyIndex].products;
     },
     setNextHistoryIndex(state) {
       if (state.historyIndex <= 1) return;
       state.historyIndex--;
-      state.products = state.history[state.history.length - state.historyIndex];
+      state.products =
+        state.history[state.history.length - state.historyIndex].products;
     },
   },
   extraReducers: (builder) => {
