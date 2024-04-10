@@ -2,6 +2,7 @@
 import React, { ForwardedRef } from 'react';
 import { usePrintSheet } from './usePrintSheet';
 import styles from './PrintSheet.module.scss';
+import { totalPriceInCategory } from '../../helpers/totalPriceInCategory';
 
 interface Props {
   contacts: string;
@@ -10,7 +11,7 @@ interface Props {
 
 const PrintSheet = React.forwardRef(
   (props: Props, ref: ForwardedRef<HTMLTableElement>) => {
-    const { state, totalPriceInCategory } = usePrintSheet();
+    const { state } = usePrintSheet();
 
     return (
       <>
@@ -79,7 +80,12 @@ const PrintSheet = React.forwardRef(
                   <td className="w-fit p-4 text-center"></td>
                   <td className="w-fit p-4 text-center"></td>
                   <td className="w-fit p-4 text-center font-semibold">
-                    ${totalPriceInCategory(category.id).toFixed(2)}
+                    $
+                    {totalPriceInCategory(
+                      category.id,
+                      state.history[state.history.length - state.historyIndex]
+                        .products,
+                    ).toFixed(2)}
                   </td>
                 </tr>
               </tbody>

@@ -2,9 +2,10 @@ import React from 'react';
 import { useProductSummary } from './useProductSummary';
 import { motion } from 'framer-motion';
 import styles from './ProductsSummary.module.scss';
+import { totalPriceInCategory } from '../../helpers/totalPriceInCategory';
 
 const ProductsSummary = () => {
-  const { state, totalPriceInCategory } = useProductSummary();
+  const { state } = useProductSummary();
 
   return (
     <>
@@ -65,7 +66,12 @@ const ProductsSummary = () => {
                   <motion.td className={styles.summaryBodyTotal}></motion.td>
                   <motion.td className={styles.summaryBodyTotal}></motion.td>
                   <motion.td className={styles.summaryBodyTotal}>
-                    ${totalPriceInCategory(category.id).toFixed(2)}
+                    $
+                    {totalPriceInCategory(
+                      category.id,
+                      state.history[state.history.length - state.historyIndex]
+                        .products,
+                    ).toFixed(2)}
                   </motion.td>
                 </motion.tr>
               </motion.tbody>

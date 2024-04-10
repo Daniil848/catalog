@@ -11,19 +11,16 @@ export const useFooter = () => {
   };
 
   const totalPrice = () => {
-    const totalPrice = state.history[
-      state.history.length - state.historyIndex
-    ].products
-      .map((el) => el.price)
-      .reduce((acc, number) => acc + number, 0);
+    const products =
+      state.history[state.history.length - state.historyIndex].products;
 
-    const totalQuantity = state.history[
-      state.history.length - state.historyIndex
-    ].products
-      .map((el) => el.quantity)
-      .reduce((acc, number) => acc + number, 0);
+    let totalPrice = 0;
 
-    return totalPrice * totalQuantity;
+    for (let i = 0; i < products.length; i++) {
+      totalPrice += products[i].price * products[i].quantity;
+    }
+
+    return totalPrice;
   };
 
   return { openSummary, handleOpenSummary, totalPrice };
