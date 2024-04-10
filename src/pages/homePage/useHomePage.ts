@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   Category,
   Product,
   editCategory,
   getDataFromIndexDB,
-  reorderProducts,
+  updateProductsToAdd,
 } from '../../app/mainSlice';
 
 interface Accordion {
@@ -48,7 +48,7 @@ export const useHomePage = () => {
   };
 
   const handleReorder = (reorderedItems: Product[]) => {
-    dispatch(reorderProducts(reorderedItems));
+    dispatch(updateProductsToAdd(reorderedItems));
   };
 
   return {
