@@ -20,7 +20,6 @@ const HomePage = () => {
     categoryName,
     setCategoryName,
     handleEditCategory,
-    items,
     handleReorder,
   } = useHomePage();
 
@@ -102,7 +101,9 @@ const HomePage = () => {
                     <Reorder.Group
                       axis="y"
                       onReorder={handleReorder}
-                      values={items}
+                      values={
+                        state.history[state.history.length - state.historyIndex]
+                      }
                     >
                       {state.history[state.history.length - state.historyIndex]
                         .filter((i) => i.categoryId == category.id)
