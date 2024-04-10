@@ -52,9 +52,9 @@ const AddProduct = (props: Props) => {
               <motion.div
                 key={''}
                 className={styles.deletedProducts}
-                initial={{ height: 0 }}
-                animate={{ height: 'auto' }}
-                exit={{ height: 0, transition: { delay: 0.2 } }}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0, transition: { delay: 0.5 } }}
               >
                 {state.deletedProducts.map((el) => {
                   const isProductInState = state.history[

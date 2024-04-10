@@ -32,6 +32,24 @@
       @apply rounded w-fit gap-2;
     }
   }
+
+  .headerSubmitLoad {
+    @apply relative;
+
+    .headerSubmitLoadButton {
+      @include headerButton;
+      @apply rounded-full w-8;
+    }
+
+    .loadButtonsContainer {
+      @apply absolute top-10 -right-2.5 flex flex-col gap-2 bg-white border border-slate-300 rounded-full p-2;
+
+      .loadButton {
+        @include headerButton;
+        @apply rounded-full w-8;
+      }
+    }
+  }
 }
 @media print {
   .header {
