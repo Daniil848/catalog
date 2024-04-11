@@ -10,7 +10,7 @@ export const totalPriceInCategory = (
 
   let totalPrice = 0;
 
-  for (let i = 0; i < products.length; i++) {
+  for (let i = 0; i < productsInCategory.length; i++) {
     totalPrice += productsInCategory[i].price * productsInCategory[i].quantity;
   }
 
