@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export interface Category {
@@ -41,30 +39,6 @@ const initialState: State = {
   error: false,
 };
 
-// export const addProducts = createAsyncThunk<
-//   Product[],
-//   Product[],
-//   { rejectValue: string }
-// >('store/addProducts', async (productsArr, { rejectWithValue }) => {
-//   try {
-//     const promises = productsArr.map(async (product: Product) => {
-//       const { data } = await axios.post(
-//         'http://localhost:3001/products',
-//         product,
-//       );
-
-//       return data;
-//     });
-
-//     const result = await Promise.all(promises);
-//     toast.success('Products added!');
-//     return result;
-//   } catch (error) {
-//     toast.error('Server error!');
-//     return rejectWithValue('Server error!');
-//   }
-// });
-
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
@@ -95,9 +69,9 @@ const mainSlice = createSlice({
     deleteProduct(state, action) {
       const index = state.history.length - state.historyIndex;
 
-      state.products = state.products.filter((product) => {
-        return product.id !== action.payload;
-      });
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload,
+      );
       state.history.splice(index + 1);
       state.history.push({
         products: state.products,
@@ -242,6 +216,17 @@ const mainSlice = createSlice({
       state.categories =
         state.history[state.history.length - state.historyIndex].categories;
     },
+    //=============================LOAD ACTIONS============================
+    donwnloadData(state, action) {
+      state.products = initialState.products;
+      state.categories = initialState.categories;
+      state.history = [];
+
+      state.products = action.payload.products;
+      state.categories = action.payload.categories;
+      state.history = [...state.history, action.payload];
+      state.historyIndex = initialState.historyIndex;
+    },
   },
   extraReducers: (builder) => {
     builder;
@@ -262,6 +247,7 @@ export const {
   togglePrintModal,
   setNextHistoryIndex,
   setPervHistoryIndex,
+  donwnloadData,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
