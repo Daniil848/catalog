@@ -1,5 +1,5 @@
 @mixin changeButton {
-  @apply w-fit h-fit bg-white text-sm border border-slate-300 rounded-full flex items-center justify-center p-[6px];
+  @apply w-fit h-fit p-[6px] bg-white text-sm border border-slate-300 rounded-full flex items-center justify-center;
 }
 
 @mixin productValues {
