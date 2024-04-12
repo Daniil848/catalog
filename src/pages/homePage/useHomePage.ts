@@ -4,7 +4,7 @@ import {
   Category,
   Product,
   editCategory,
-  getDataFromIndexDB,
+  getDataFromIndexedDB,
   updateProductsToAdd,
 } from '../../app/mainSlice';
 
@@ -21,7 +21,7 @@ export const useHomePage = () => {
   const [categoryName, setCategoryName] = useState<string>('');
 
   useEffect(() => {
-    dispatch(getDataFromIndexDB());
+    dispatch(getDataFromIndexedDB());
   }, []);
 
   const handleAccordion = (category: Category) => {

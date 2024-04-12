@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { openDB } from 'idb';
 import toast from 'react-hot-toast';
 
 export interface Category {
@@ -38,6 +40,89 @@ const initialState: State = {
   loading: false,
   error: false,
 };
+
+export const synchronizeIndexedDb = createAsyncThunk<
+  any,
+  { categories: Category[]; products: Product[]; deletedProducts: Product[] },
+  { rejectValue: string }
+>('store/sync', async (data) => {
+  const { categories, products, deletedProducts } = data;
+  const db = await openDB('Catalog', 1, {
+    upgrade(db) {
+      // Создайте хранилища данных, если их еще нет
+      if (!db.objectStoreNames.contains('categories')) {
+        db.createObjectStore('categories', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('products')) {
+        db.createObjectStore('products', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('deletedProducts')) {
+        db.createObjectStore('deletedProducts', { keyPath: 'id' });
+      }
+    },
+  });
+
+  const tx = db.transaction(
+    ['categories', 'products', 'deletedProducts'],
+    'readwrite',
+  );
+  const categoryStore = tx.objectStore('categories');
+  const productStore = tx.objectStore('products');
+  const deletedProductStore = tx.objectStore('deletedProducts');
+
+  for (const category of categories) {
+    await categoryStore.put(category);
+  }
+
+  for (const product of products) {
+    await productStore.put(product);
+  }
+
+  for (const deletedProduct of deletedProducts) {
+    await deletedProductStore.put(deletedProduct);
+  }
+
+  await tx.done;
+
+  return data;
+});
+
+export const getDataFromIndexedDB = createAsyncThunk<
+  any,
+  undefined,
+  { rejectValue: string }
+>('store/get', async () => {
+  const db = await openDB('Catalog', 1, {
+    upgrade(db) {
+      // Создайте хранилища данных, если их еще нет
+      if (!db.objectStoreNames.contains('categories')) {
+        db.createObjectStore('categories', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('products')) {
+        db.createObjectStore('products', { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains('deletedProducts')) {
+        db.createObjectStore('deletedProducts', { keyPath: 'id' });
+      }
+    },
+  });
+
+  const tx = db.transaction(
+    ['categories', 'products', 'deletedProducts'],
+    'readonly',
+  );
+  const categoryStore = tx.objectStore('categories');
+  const productStore = tx.objectStore('products');
+  const deletedProductStore = tx.objectStore('deletedProducts');
+
+  const categories = await categoryStore.getAll();
+  const products = await productStore.getAll();
+  const deletedProducts = await deletedProductStore.getAll();
+
+  await tx.done;
+
+  return { categories, products, deletedProducts };
+});
 
 const mainSlice = createSlice({
   name: 'mainSlice',
@@ -150,47 +235,6 @@ const mainSlice = createSlice({
       state.historyIndex = initialState.historyIndex;
       toast.success('Category deleted!');
     },
-    //=============================INDEXDB ACTIONS=============================
-    synchronizeIdexDb(state) {
-      localStorage.setItem('products', JSON.stringify(state.products));
-      localStorage.setItem('categories', JSON.stringify(state.categories));
-      localStorage.setItem(
-        'deletedProducts',
-        JSON.stringify(state.deletedProducts),
-      );
-      toast.success('Synchronized!');
-    },
-    getDataFromIndexDB(state) {
-      const categories = JSON.parse(localStorage.getItem('categories') || '{}');
-      const products = JSON.parse(localStorage.getItem('products') || '{}');
-      const deletedProducts = JSON.parse(
-        localStorage.getItem('deletedProducts') || '{}',
-      );
-
-      if (Array.isArray(categories)) {
-        state.categories = categories.map((category: Category) => category);
-      } else {
-        state.categories = [];
-      }
-
-      if (Array.isArray(products) && products.length !== 0) {
-        state.products = products.map((product: Product) => product);
-        state.history.push({
-          products: state.products,
-          categories: state.categories,
-        });
-      } else {
-        state.products = [];
-      }
-
-      if (Array.isArray(deletedProducts)) {
-        state.deletedProducts = deletedProducts.map(
-          (product: Product) => product,
-        );
-      } else {
-        state.deletedProducts = [];
-      }
-    },
     //=============================PRINT ACTIONS=============================
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
@@ -229,7 +273,41 @@ const mainSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder;
+    builder
+      .addCase(synchronizeIndexedDb.fulfilled, () => {
+        toast.success('Synchronized!');
+      })
+      .addCase(synchronizeIndexedDb.rejected, () => {
+        toast.error('Server error!');
+      })
+      .addCase(getDataFromIndexedDB.fulfilled, (state, action) => {
+        if (Array.isArray(action.payload.categories)) {
+          state.categories = action.payload.categories.map(
+            (category: Category) => category,
+          );
+        } else {
+          state.categories = [];
+        }
+
+        if (
+          Array.isArray(action.payload.products) &&
+          action.payload.products.length !== 0
+        ) {
+          state.products = action.payload.products;
+          state.history.push({
+            products: state.products,
+            categories: state.categories,
+          });
+        } else {
+          state.products = [];
+        }
+
+        if (Array.isArray(action.payload.deletedProducts)) {
+          state.deletedProducts = action.payload.deletedProducts;
+        } else {
+          state.deletedProducts = [];
+        }
+      });
   },
 });
 
@@ -242,8 +320,6 @@ export const {
   addCategory,
   editCategory,
   deleteCategory,
-  synchronizeIdexDb,
-  getDataFromIndexDB,
   togglePrintModal,
   setNextHistoryIndex,
   setPervHistoryIndex,

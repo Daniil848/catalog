@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   donwnloadData,
-  synchronizeIdexDb,
+  synchronizeIndexedDb,
   togglePrintModal,
 } from '../../app/mainSlice';
 
@@ -17,7 +17,13 @@ export const useHeader = () => {
   };
 
   const synchronizeData = () => {
-    dispatch(synchronizeIdexDb());
+    dispatch(
+      synchronizeIndexedDb({
+        categories: state.categories,
+        products: state.products,
+        deletedProducts: state.deletedProducts,
+      }),
+    );
   };
 
   const upload = () => {
