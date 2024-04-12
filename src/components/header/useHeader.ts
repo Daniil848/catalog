@@ -19,8 +19,10 @@ export const useHeader = () => {
   const synchronizeData = () => {
     dispatch(
       synchronizeIndexedDb({
-        categories: state.categories,
-        products: state.products,
+        categories:
+          state.history[state.history.length - state.historyIndex].categories,
+        products:
+          state.history[state.history.length - state.historyIndex].products,
         deletedProducts: state.deletedProducts,
       }),
     );

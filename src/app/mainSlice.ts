@@ -70,19 +70,36 @@ export const synchronizeIndexedDb = createAsyncThunk<
   const productStore = tx.objectStore('products');
   const deletedProductStore = tx.objectStore('deletedProducts');
 
+  // Очистка существующих данных перед записью новых данных
+  categoryStore.clear();
+  productStore.clear();
+  deletedProductStore.clear();
+
+  await tx.done; // Убедимся, что очистка завершена перед записью
+
+  // Начнем новую транзакцию для записи новых данных
+  const writeTx = db.transaction(
+    ['categories', 'products', 'deletedProducts'],
+    'readwrite',
+  );
+  const writeCategoryStore = writeTx.objectStore('categories');
+  const writeProductStore = writeTx.objectStore('products');
+  const writeDeletedProductStore = writeTx.objectStore('deletedProducts');
+
+  // Запись новых данных
   for (const category of categories) {
-    await categoryStore.put(category);
+    await writeCategoryStore.put(category);
   }
 
   for (const product of products) {
-    await productStore.put(product);
+    await writeProductStore.put(product);
   }
 
   for (const deletedProduct of deletedProducts) {
-    await deletedProductStore.put(deletedProduct);
+    await writeDeletedProductStore.put(deletedProduct);
   }
 
-  await tx.done;
+  await writeTx.done;
 
   return data;
 });
@@ -120,6 +137,8 @@ export const getDataFromIndexedDB = createAsyncThunk<
   const deletedProducts = await deletedProductStore.getAll();
 
   await tx.done;
+
+  console.log();
 
   return { categories, products, deletedProducts };
 });
@@ -282,9 +301,11 @@ const mainSlice = createSlice({
       })
       .addCase(getDataFromIndexedDB.fulfilled, (state, action) => {
         if (Array.isArray(action.payload.categories)) {
-          state.categories = action.payload.categories.map(
-            (category: Category) => category,
-          );
+          state.categories = action.payload.categories;
+          state.history.push({
+            products: state.products,
+            categories: state.categories,
+          });
         } else {
           state.categories = [];
         }
