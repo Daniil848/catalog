@@ -5,7 +5,14 @@
     @apply block text-sm font-medium text-start mb-2 text-teal-700;
   }
 
+  .labelError {
+    @apply block mb-2 text-sm font-medium text-start text-red-800;
+  }
+
   .input {
-    @apply w-full inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700;
+    @apply w-full inline-block outline-none border border-slate-300 text-gray-900 text-sm rounded focus:ring-teal-700 focus:border-teal-700;
+  }
+  .inputError {
+    @apply w-full inline-block outline-none border border-red-700 text-gray-900 text-sm rounded focus:ring-red-700 focus:border-red-700;
   }
 }

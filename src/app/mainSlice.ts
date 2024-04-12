@@ -42,7 +42,7 @@ const initialState: State = {
 };
 
 export const synchronizeIndexedDb = createAsyncThunk<
-  any,
+  { categories: Category[]; products: Product[]; deletedProducts: Product[] },
   { categories: Category[]; products: Product[]; deletedProducts: Product[] },
   { rejectValue: string }
 >('store/sync', async (data) => {
@@ -88,7 +88,7 @@ export const synchronizeIndexedDb = createAsyncThunk<
 });
 
 export const getDataFromIndexedDB = createAsyncThunk<
-  any,
+  { categories: Category[]; products: Product[]; deletedProducts: Product[] },
   undefined,
   { rejectValue: string }
 >('store/get', async () => {

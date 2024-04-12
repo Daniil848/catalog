@@ -13,6 +13,8 @@ export const useProductCard = () => {
   const state = useAppSelector((state) => state.mainSlice);
   const dispatch = useAppDispatch();
 
+  const controls = useDragControls();
+
   const [isEditProduct, setIsEditProduct] = useState<{
     [key: string]: boolean;
   }>({});
@@ -26,8 +28,7 @@ export const useProductCard = () => {
   const [productCount, setProductCount] = useState<{ [key: string]: number }>(
     {},
   );
-
-  const controls = useDragControls();
+  const [productNameError, setProductNameError] = useState<boolean>(false);
 
   const handleSwitchEditProduct = (productId: string) => {
     setIsEditProduct((prevState) => ({
@@ -44,6 +45,11 @@ export const useProductCard = () => {
   };
 
   const handleProductName = (value: string, productId: string) => {
+    const productName = state.products.find(
+      (product) => product.title === value,
+    );
+    productName ? setProductNameError(true) : setProductNameError(false);
+
     setProductName((pervProductName) => ({
       ...pervProductName,
       [productId]: value,
@@ -65,6 +71,8 @@ export const useProductCard = () => {
   };
 
   const handleChangeProduct = (productId: string) => {
+    if (productNameError) return;
+
     const updatedProducts = state.products.map((product) => {
       if (product.id === productId) {
         return {
@@ -98,6 +106,7 @@ export const useProductCard = () => {
     setProductImage,
     handleProductImage,
     handleProductName,
+    productNameError,
     handleProductPrice,
     handleProductCount,
     handleChangeProduct,

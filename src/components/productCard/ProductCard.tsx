@@ -22,6 +22,7 @@ const ProductCard = (props: Props) => {
     handleProductName,
     productImage,
     productName,
+    productNameError,
     productPrice,
     productCount,
     setProductImage,
@@ -150,6 +151,8 @@ const ProductCard = (props: Props) => {
                   onChange={(e) =>
                     handleProductName(e.target.value, props.product.id)
                   }
+                  error={productNameError}
+                  errorText="There is already such a product"
                 />
               </motion.div>
               <motion.div className={styles.wrapper}>
