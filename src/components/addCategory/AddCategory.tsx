@@ -11,49 +11,47 @@ const AddCategory = () => {
     useAddCategory();
 
   return (
-    <>
-      <motion.div
-        className={styles.addCategory}
-        initial={{ opacity: 0, width: 0 }}
-        animate={{
-          opacity: 1,
-          width: 'auto',
-          transition: {
-            duration: 0.6,
-          },
-        }}
-      >
-        {!state.isAddCategory ? (
+    <motion.div
+      className={styles.addCategory}
+      initial={{ opacity: 0, width: 0 }}
+      animate={{
+        opacity: 1,
+        width: 'auto',
+        transition: {
+          duration: 0.6,
+        },
+      }}
+    >
+      {!state.isAddCategory ? (
+        <motion.button
+          onClick={() => dispatch(setIsAddCategory(true))}
+          className={styles.addCategoryText}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          Add category <FontAwesomeIcon icon={faPlus} />
+        </motion.button>
+      ) : (
+        <motion.div
+          className={styles.addCategoryForm}
+          initial={{ width: 0 }}
+          animate={{ width: 'auto' }}
+        >
+          <motion.input
+            type="text"
+            onChange={(e) => setCategoryName(e.target.value)}
+            className={styles.addCategoryFormInput}
+          />
           <motion.button
-            onClick={() => dispatch(setIsAddCategory(true))}
-            className={styles.addCategoryText}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className={styles.addCategoryFormButton}
+            onClick={() => handleChangeCtegory()}
           >
-            Add category <FontAwesomeIcon icon={faPlus} />
+            Ok
           </motion.button>
-        ) : (
-          <motion.div
-            className={styles.addCategoryForm}
-            initial={{ width: 0 }}
-            animate={{ width: 'auto' }}
-          >
-            <motion.input
-              type="text"
-              onChange={(e) => setCategoryName(e.target.value)}
-              className={styles.addCategoryFormInput}
-            />
-            <motion.button
-              className={styles.addCategoryFormButton}
-              onClick={() => handleChangeCtegory()}
-            >
-              Ok
-            </motion.button>
-          </motion.div>
-        )}
-      </motion.div>
-    </>
+        </motion.div>
+      )}
+    </motion.div>
   );
 };
 

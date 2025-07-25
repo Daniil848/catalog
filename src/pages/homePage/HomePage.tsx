@@ -44,13 +44,11 @@ const HomePage = () => {
                 },
               }}
               exit={{ opacity: 0, width: 0 }}
+              onClick={() => handleAccordion(category)}
             >
               <motion.div>
                 {isEditCategory !== category.id ? (
-                  <motion.p
-                    className={styles.categoryName}
-                    onClick={() => handleAccordion(category)}
-                  >
+                  <motion.p className={styles.categoryName}>
                     {category.name}
                   </motion.p>
                 ) : (
@@ -72,14 +70,20 @@ const HomePage = () => {
               </motion.div>
               <motion.div className={styles.categoryEdit}>
                 <motion.button
-                  onClick={() => openEditCategory(category)}
+                  onClick={(e) => {
+                    openEditCategory(category);
+                    e.stopPropagation();
+                  }}
                   className={styles.categoryEditIcon}
                 >
                   <FontAwesomeIcon icon={faPenToSquare} />
                 </motion.button>
                 <motion.button
                   className={styles.categoryDeleteIcon}
-                  onClick={() => dispatch(deleteCategory(category))}
+                  onClick={(e) => {
+                    dispatch(deleteCategory(category));
+                    e.stopPropagation();
+                  }}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </motion.button>

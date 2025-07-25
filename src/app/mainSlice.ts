@@ -49,7 +49,6 @@ export const synchronizeIndexedDb = createAsyncThunk<
   const { categories, products, deletedProducts } = data;
   const db = await openDB('Catalog', 1, {
     upgrade(db) {
-      // Создайте хранилища данных, если их еще нет
       if (!db.objectStoreNames.contains('categories')) {
         db.createObjectStore('categories', { keyPath: 'id' });
       }
@@ -70,14 +69,12 @@ export const synchronizeIndexedDb = createAsyncThunk<
   const productStore = tx.objectStore('products');
   const deletedProductStore = tx.objectStore('deletedProducts');
 
-  // Очистка существующих данных перед записью новых данных
   categoryStore.clear();
   productStore.clear();
   deletedProductStore.clear();
 
-  await tx.done; // Убедимся, что очистка завершена перед записью
+  await tx.done;
 
-  // Начнем новую транзакцию для записи новых данных
   const writeTx = db.transaction(
     ['categories', 'products', 'deletedProducts'],
     'readwrite',
@@ -86,7 +83,6 @@ export const synchronizeIndexedDb = createAsyncThunk<
   const writeProductStore = writeTx.objectStore('products');
   const writeDeletedProductStore = writeTx.objectStore('deletedProducts');
 
-  // Запись новых данных
   for (const category of categories) {
     await writeCategoryStore.put(category);
   }
@@ -111,7 +107,6 @@ export const getDataFromIndexedDB = createAsyncThunk<
 >('store/get', async () => {
   const db = await openDB('Catalog', 1, {
     upgrade(db) {
-      // Создайте хранилища данных, если их еще нет
       if (!db.objectStoreNames.contains('categories')) {
         db.createObjectStore('categories', { keyPath: 'id' });
       }
@@ -147,7 +142,6 @@ const mainSlice = createSlice({
   name: 'mainSlice',
   initialState,
   reducers: {
-    //=============================PRODUCTS ACTIONS=============================
     setProductsToAdd(state, action) {
       const index = state.history.length - state.historyIndex;
 
@@ -199,7 +193,6 @@ const mainSlice = createSlice({
         state.deletedProducts.push(action.payload);
       }
     },
-    //=============================CATEGORIES ACTIONS=============================
     setIsAddCategory(state, action) {
       state.isAddCategory = action.payload;
     },
@@ -254,11 +247,9 @@ const mainSlice = createSlice({
       state.historyIndex = initialState.historyIndex;
       toast.success('Category deleted!');
     },
-    //=============================PRINT ACTIONS=============================
     togglePrintModal(state, action) {
       state.togglePrintModal = action.payload;
     },
-    //=============================HISTORY ACTIONS============================
     setPervHistoryIndex(state) {
       if (state.historyIndex >= state.history.length) return;
       state.historyIndex++;
@@ -279,7 +270,6 @@ const mainSlice = createSlice({
       state.categories =
         state.history[state.history.length - state.historyIndex].categories;
     },
-    //=============================LOAD ACTIONS============================
     donwnloadData(state, action) {
       state.products = initialState.products;
       state.categories = initialState.categories;

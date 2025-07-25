@@ -43,18 +43,18 @@ export const useHeader = () => {
 
   const download = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (!evt.target.files) return;
-    const file = evt.target.files[0]; // Получаем файл
+    const file = evt.target.files[0];
     const reader = new FileReader();
 
     reader.onload = (e: any) => {
-      const data = JSON.parse(e.target.result); // Преобразуем содержимое файла
+      const data = JSON.parse(e.target.result);
       console.log(data);
 
       dispatch(donwnloadData(data));
     };
 
     reader.onerror = (e) => {
-      console.error('Ошибка FileReader:', e); // Обработка ошибки
+      console.error('Ошибка FileReader:', e);
     };
 
     reader.readAsText(file);
